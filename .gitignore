@@ -2,3 +2,9 @@ PokerAparat/.vscode/
 PokerAparat/Logs
 PokerAparat/Temp
 PokerAparat/Library
+PokerAparat/Logs/
+PokerAparat/Temp/
+PokerAparat/Library/
+PokerAparat/Logs/*.*
+PokerAparat/Temp/*.*
+PokerAparat/Library/*.*
