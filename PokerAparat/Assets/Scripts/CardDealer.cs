@@ -8,6 +8,8 @@ public class CardDealer : MonoBehaviour
     private Transform _transform;
     private Object[] cardResources;
     public Dictionary<Card.CardTypeEnum, Card> CardDictionary = new Dictionary<Card.CardTypeEnum, Card>();
+    public enum DealRoundEnum { First, Second, Zero }
+    public DealRoundEnum DealRound;
 
     public static CardDealer Instance
     {
@@ -17,8 +19,17 @@ public class CardDealer : MonoBehaviour
         }
     }
 
+    public Transform ObjectTransform
+    {
+        get
+        {
+            return _transform;
+        }
+    }
+
     private void Awake()
     {
+        DealRound = DealRoundEnum.Zero;
         _transform = transform;
         _instance = this;
         CardDictionary.Clear();
@@ -27,27 +38,6 @@ public class CardDealer : MonoBehaviour
     void Start()
     {
         LoadAllCardResources();
-        PrepareDeck();
-    }
-
-    void Update()
-    {
-
-    }
-
-    private void PrepareDeck()
-    {
-
-    }
-
-    private void PullCard()
-    {
-
-    }
-
-    private void PutCard()
-    {
-
     }
 
     private void LoadAllCardResources()

@@ -478,6 +478,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CardSlotParent: {fileID: 1334199192}
+  DrawCardsButton: {fileID: 846022295}
 --- !u!4 &137941492
 Transform:
   m_ObjectHideFlags: 0
@@ -1325,6 +1326,8 @@ MonoBehaviour:
   SlotNumber: 1
   HoldText: {fileID: 622775004}
   CardBack: {fileID: 57604356}
+  DrawnCard: {fileID: 0}
+  IsLocked: 0
 --- !u!1 &622775002
 GameObject:
   m_ObjectHideFlags: 0
@@ -1636,6 +1639,8 @@ MonoBehaviour:
   SlotNumber: 2
   HoldText: {fileID: 350495352}
   CardBack: {fileID: 111302582}
+  DrawnCard: {fileID: 0}
+  IsLocked: 0
 --- !u!1 &774122062
 GameObject:
   m_ObjectHideFlags: 0
@@ -3823,6 +3828,8 @@ MonoBehaviour:
   SlotNumber: 4
   HoldText: {fileID: 1868599390}
   CardBack: {fileID: 1331647514}
+  DrawnCard: {fileID: 0}
+  IsLocked: 0
 --- !u!1 &1868599388
 GameObject:
   m_ObjectHideFlags: 0
@@ -4193,6 +4200,8 @@ MonoBehaviour:
   SlotNumber: 3
   HoldText: {fileID: 1012184933}
   CardBack: {fileID: 1872459429}
+  DrawnCard: {fileID: 0}
+  IsLocked: 0
 --- !u!1 &2037236219
 GameObject:
   m_ObjectHideFlags: 0
@@ -4284,6 +4293,8 @@ MonoBehaviour:
   SlotNumber: 5
   HoldText: {fileID: 180187769}
   CardBack: {fileID: 1275058592}
+  DrawnCard: {fileID: 0}
+  IsLocked: 0
 --- !u!1 &2048461160
 GameObject:
   m_ObjectHideFlags: 0
