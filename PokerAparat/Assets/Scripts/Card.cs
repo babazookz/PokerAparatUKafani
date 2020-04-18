@@ -12,15 +12,8 @@ public class Card : MonoBehaviour
         Heart_2, Heart_3, Heart_4, Heart_5, Heart_6, Heart_7, Heart_8, Heart_9, Heart_10, Heart_J, Heart_Q, Heart_K, Heart_A,
         Joker
     }
+
+    public enum Suit { Spade, Heart, Diamond, Club, Joker }
     public CardTypeEnum CardType;
-
-    void Start()
-    {
-
-    }
-
-    void Update()
-    {
-
-    }
+    public Suit SuitType;
 }

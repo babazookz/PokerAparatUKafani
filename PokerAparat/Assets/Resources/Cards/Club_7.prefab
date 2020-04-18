@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3219524925086573326}
   - component: {fileID: 4128272096364418209}
   m_Layer: 5
-  m_Name: Card_7_Club
+  m_Name: Club_7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -87,3 +87,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CardType: 5
+  SuitType: 3
