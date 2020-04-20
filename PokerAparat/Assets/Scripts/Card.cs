@@ -16,4 +16,5 @@ public class Card : MonoBehaviour
     public enum Suit { Spade, Heart, Diamond, Club, Joker }
     public CardTypeEnum CardType;
     public Suit SuitType;
+    public int CardValue;
 }

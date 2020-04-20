@@ -132,6 +132,14 @@ public class CardDealer : MonoBehaviour
             }
 
             //_card.PopulateCardType();
+            if (CardValueDictionary.ContainsKey(_card.name))
+            {
+                _card.CardValue = CardValueDictionary[_card.name];
+            }
+            else
+            {
+                _card.CardValue = 0;
+            }
             CardDictionary.Add(_card.CardType, _card);
             //go.SetActive(false);
         }

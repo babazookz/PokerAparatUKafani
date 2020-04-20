@@ -39,6 +39,16 @@ public class CardSlotManager : MonoBehaviour
         else if (CardDealer.Instance.DealRound == CardDealer.DealRoundEnum.First)
         {
             CardDealer.Instance.DealRound = CardDealer.DealRoundEnum.Second;
+
+            List<Card> allCards = new List<Card>();
+            foreach (CardSlot cs in _cardSlots)
+            {
+                if (cs.DrawnCard != null)
+                {
+                    allCards.Add(cs.DrawnCard);
+                }
+            }
+            HandEvaluator.Instance.EvaluateHand(allCards);
         }
         else
         {
