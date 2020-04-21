@@ -55,42 +55,52 @@ public class HandEvaluator : MonoBehaviour
         if (IsFiveOfAKind())
         {
             Debug.Log("it is FIVE OF A KIND");
+            PlayerAccount.Instance.AddCredits((int)GoalsManager.DefaultPrizes.FiveOfKind * BetManager.Instance.MyCurrentBet);
         }
         else if (IsRoyalFlush(cards))
         {
             Debug.Log("it is ROYAL FLUSH");
+            PlayerAccount.Instance.AddCredits((int)GoalsManager.DefaultPrizes.RoyalFlush * BetManager.Instance.MyCurrentBet);
         }
         else if (IsStraightFlush(cards))
         {
             Debug.Log("it is STREET FLUSH");
+            PlayerAccount.Instance.AddCredits((int)GoalsManager.DefaultPrizes.StraightFlush * BetManager.Instance.MyCurrentBet);
         }
         else if (IsPoker())
         {
-            Debug.Log("it is FOUR OF A KIND");
+            Debug.Log("it is POKER");
+            PlayerAccount.Instance.AddCredits((int)GoalsManager.DefaultPrizes.Poker * BetManager.Instance.MyCurrentBet);
         }
         else if (IsFullHouse(cards))
         {
             Debug.Log("it is FULL HOUSE");
+            PlayerAccount.Instance.AddCredits((int)GoalsManager.DefaultPrizes.FullHouse * BetManager.Instance.MyCurrentBet);
         }
         else if (IsFlush())
         {
             Debug.Log("it is FLUSH");
+            PlayerAccount.Instance.AddCredits((int)GoalsManager.DefaultPrizes.Flush * BetManager.Instance.MyCurrentBet);
         }
         else if (IsStraight(cards))
         {
             Debug.Log("it is STREET");
+            PlayerAccount.Instance.AddCredits((int)GoalsManager.DefaultPrizes.Straight * BetManager.Instance.MyCurrentBet);
         }
         else if (IsThreeOfAKind())
         {
             Debug.Log("it is THREE OF A KIND");
+            PlayerAccount.Instance.AddCredits((int)GoalsManager.DefaultPrizes.ThreeOfKind * BetManager.Instance.MyCurrentBet);
         }
         else if (IsDoublePair())
         {
             Debug.Log("it is DOUBLE PAIR");
+            PlayerAccount.Instance.AddCredits((int)GoalsManager.DefaultPrizes.DoublePair * BetManager.Instance.MyCurrentBet);
         }
         else if (IsHighPair(cards))
         {
             Debug.Log("it is HIGH PAIR");
+            PlayerAccount.Instance.AddCredits((int)GoalsManager.DefaultPrizes.HighPair * BetManager.Instance.MyCurrentBet);
         }
     }
 

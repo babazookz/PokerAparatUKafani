@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class GoalsManager : MonoBehaviour
 {
-    public enum DefaultPrizes { HighPair = 1, DoublePair = 2, ThreeOfKind = 3, Street = 5, Flush = 7, FullHouse = 10, Poker = 40, StreetFlush = 100, RoyalFlush = 500, FiveOfKind = 1100 }
+    public enum DefaultPrizes { HighPair = 1, DoublePair = 2, ThreeOfKind = 3, Straight = 5, Flush = 7, FullHouse = 10, Poker = 40, StraightFlush = 100, RoyalFlush = 500, FiveOfKind = 1100 }
     private static GoalsManager _instance;
     public Text FiveOfAKindPrize;
     public Text PokerPrize;
@@ -47,11 +47,11 @@ public class GoalsManager : MonoBehaviour
         HighPairPrize.text = string.Format("{0}", (int)DefaultPrizes.HighPair * bet);
         DoublePairPrize.text = string.Format("{0}", (int)DefaultPrizes.DoublePair * bet);
         ThreeOfAKindPrize.text = string.Format("{0}", (int)DefaultPrizes.ThreeOfKind * bet);
-        StreetPrize.text = string.Format("{0}", (int)DefaultPrizes.Street * bet);
+        StreetPrize.text = string.Format("{0}", (int)DefaultPrizes.Straight * bet);
         FlushPrize.text = string.Format("{0}", (int)DefaultPrizes.Flush * bet);
         FullHousePrize.text = string.Format("{0}", (int)DefaultPrizes.FullHouse * bet);
         PokerPrize.text = string.Format("{0}", (int)DefaultPrizes.Poker * bet);
-        StreetFlushPrize.text = string.Format("{0}", (int)DefaultPrizes.StreetFlush * bet);
+        StreetFlushPrize.text = string.Format("{0}", (int)DefaultPrizes.StraightFlush * bet);
         RoyalFlushPrize.text = string.Format("{0}", (int)DefaultPrizes.RoyalFlush * bet);
         FiveOfAKindPrize.text = string.Format("{0}", (int)DefaultPrizes.FiveOfKind * bet);
     }

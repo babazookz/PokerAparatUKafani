@@ -54,6 +54,11 @@ public class CardSlotManager : MonoBehaviour
         {
             CardDealer.Instance.DealRound = CardDealer.DealRoundEnum.First;
         }
+
+        if (CardDealer.Instance.DealRound == CardDealer.DealRoundEnum.First)
+        {
+            PlayerAccount.Instance.AddCredits(-BetManager.Instance.MyCurrentBet);
+        }
     }
 
     void PrepareCardSlots()
