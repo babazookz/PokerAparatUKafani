@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.UI;
 
 public class BetManager : MonoBehaviour
 {
     private static BetManager _instance;
     private int _currentBet = 1;
+    public Text BetText;
 
     public int MyCurrentBet
     {
@@ -35,13 +37,14 @@ public class BetManager : MonoBehaviour
     private void Awake()
     {
         _instance = this;
+        MyCurrentBet = 0;
     }
 
     // Start is called before the first frame update
     void Start()
     {
         this.OnMyCurrentBetVariableChange += MyCurrentBetVariableChangeHandler;
-        GoalsManager.Instance.RecalculatePrizes(MyCurrentBet);
+        MyCurrentBet = PlayerPrefs.GetInt("CurrentBet", 1);
     }
 
     // Update is called once per frame
@@ -54,5 +57,8 @@ public class BetManager : MonoBehaviour
     {
         Debug.Log("MyCurrentBet is now - " + MyCurrentBet.ToString());
         GoalsManager.Instance.RecalculatePrizes(MyCurrentBet);
+
+        BetText.text = MyCurrentBet.ToString("# ###");
+        PlayerPrefs.SetInt("CurrentBet", MyCurrentBet);
     }
 }
