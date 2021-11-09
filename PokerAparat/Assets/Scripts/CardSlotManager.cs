@@ -32,33 +32,37 @@ public class CardSlotManager : MonoBehaviour
         HashSet<Card.CardTypeEnum> _cardsNoLongerAvailable = ClearUnlockedCards();
         DrawCards(_cardsNoLongerAvailable);
 
+        List<Card> allCards = new List<Card>();
+        foreach (CardSlot cs in _cardSlots)
+        {
+            if (cs.DrawnCard != null)
+            {
+                allCards.Add(cs.DrawnCard);
+            }
+        }
+
         if (CardDealer.Instance.DealRound == CardDealer.DealRoundEnum.Zero)
         {
             CardDealer.Instance.DealRound = CardDealer.DealRoundEnum.First;
+            HandEvaluator.Instance.EvaluateHand(allCards, false);
         }
         else if (CardDealer.Instance.DealRound == CardDealer.DealRoundEnum.First)
         {
             CardDealer.Instance.DealRound = CardDealer.DealRoundEnum.Second;
-
-            List<Card> allCards = new List<Card>();
-            foreach (CardSlot cs in _cardSlots)
-            {
-                if (cs.DrawnCard != null)
-                {
-                    allCards.Add(cs.DrawnCard);
-                }
-            }
             HandEvaluator.Instance.EvaluateHand(allCards);
         }
         else
         {
             CardDealer.Instance.DealRound = CardDealer.DealRoundEnum.First;
+            HandEvaluator.Instance.EvaluateHand(allCards, false);
         }
 
         if (CardDealer.Instance.DealRound == CardDealer.DealRoundEnum.First)
         {
             PlayerAccount.Instance.AddCredits(-BetManager.Instance.MyCurrentBet);
         }
+
+
     }
 
     void PrepareCardSlots()
@@ -156,6 +160,7 @@ public class CardSlotManager : MonoBehaviour
                 card.gameObject.SetActive(true);
                 card.transform.SetParent(cse.transform, false);
                 cse.CardBack.gameObject.SetActive(false);
+                card.ParentCardSlot = cse;
             }
         }
     }

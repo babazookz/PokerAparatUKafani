@@ -13,6 +13,7 @@ public class CardSlot : MonoBehaviour, IPointerClickHandler
     public Transform CardBack;
     public Card DrawnCard;
     public bool IsLocked = false;
+    public Image BackgroundWhenLocked;
 
     private void Awake()
     {
@@ -46,13 +47,22 @@ public class CardSlot : MonoBehaviour, IPointerClickHandler
 
         IsLocked = !IsLocked;
         HoldText.gameObject.SetActive(IsLocked);
+        BackgroundWhenLocked.enabled = IsLocked;
     }
 
     public void ResetSlot()
     {
         IsLocked = false;
         HoldText.gameObject.SetActive(IsLocked);
+        BackgroundWhenLocked.enabled = IsLocked;
     }
 
     #endregion
+
+    public void LockCard()
+    {
+        IsLocked = true;
+        HoldText.gameObject.SetActive(IsLocked);
+        BackgroundWhenLocked.enabled = IsLocked;
+    }
 }

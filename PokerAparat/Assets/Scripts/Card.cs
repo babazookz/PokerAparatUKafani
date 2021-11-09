@@ -17,4 +17,12 @@ public class Card : MonoBehaviour
     public CardTypeEnum CardType;
     public Suit SuitType;
     public int CardValue;
+    private CardSlot _parentCardSlot;
+
+    public CardSlot ParentCardSlot { get => _parentCardSlot; set => _parentCardSlot = value; }
+
+    private void OnDisable()
+    {
+        ParentCardSlot = null;
+    }
 }

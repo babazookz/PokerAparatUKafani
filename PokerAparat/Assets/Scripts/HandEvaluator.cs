@@ -26,19 +26,7 @@ public class HandEvaluator : MonoBehaviour
         _instance = this;
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    public void EvaluateHand(List<Card> cards)
+    public void EvaluateHand(List<Card> cards, bool prizeAllowed = true)
     {
         CardValueCountDictionary.Clear();
         heartTotal = 0;
@@ -47,60 +35,67 @@ public class HandEvaluator : MonoBehaviour
         spadeTotal = 0;
         jokerTotal = 0;
 
+        int prizeAmount = 0;
+
         // sort by card value
         cards = cards.OrderBy(ob => ob.CardValue).ToList();
 
         AnalyzeCards(cards);
 
-        if (IsFiveOfAKind())
+        if (IsFiveOfAKind(cards))
         {
             Debug.Log("it is FIVE OF A KIND");
-            PlayerAccount.Instance.AddCredits((int)GoalsManager.DefaultPrizes.FiveOfKind * BetManager.Instance.MyCurrentBet);
+            prizeAmount = (int)GoalsManager.DefaultPrizes.FiveOfKind;
         }
         else if (IsRoyalFlush(cards))
         {
             Debug.Log("it is ROYAL FLUSH");
-            PlayerAccount.Instance.AddCredits((int)GoalsManager.DefaultPrizes.RoyalFlush * BetManager.Instance.MyCurrentBet);
+            prizeAmount = (int)GoalsManager.DefaultPrizes.RoyalFlush;
         }
         else if (IsStraightFlush(cards))
         {
             Debug.Log("it is STREET FLUSH");
-            PlayerAccount.Instance.AddCredits((int)GoalsManager.DefaultPrizes.StraightFlush * BetManager.Instance.MyCurrentBet);
+            prizeAmount = (int)GoalsManager.DefaultPrizes.StraightFlush;
         }
-        else if (IsPoker())
+        else if (IsPoker(cards))
         {
             Debug.Log("it is POKER");
-            PlayerAccount.Instance.AddCredits((int)GoalsManager.DefaultPrizes.Poker * BetManager.Instance.MyCurrentBet);
+            prizeAmount = (int)GoalsManager.DefaultPrizes.Poker;
         }
         else if (IsFullHouse(cards))
         {
             Debug.Log("it is FULL HOUSE");
-            PlayerAccount.Instance.AddCredits((int)GoalsManager.DefaultPrizes.FullHouse * BetManager.Instance.MyCurrentBet);
+            prizeAmount = (int)GoalsManager.DefaultPrizes.FullHouse;
         }
-        else if (IsFlush())
+        else if (IsFlush(cards))
         {
             Debug.Log("it is FLUSH");
-            PlayerAccount.Instance.AddCredits((int)GoalsManager.DefaultPrizes.Flush * BetManager.Instance.MyCurrentBet);
+            prizeAmount = (int)GoalsManager.DefaultPrizes.Flush;
         }
         else if (IsStraight(cards))
         {
             Debug.Log("it is STREET");
-            PlayerAccount.Instance.AddCredits((int)GoalsManager.DefaultPrizes.Straight * BetManager.Instance.MyCurrentBet);
+            prizeAmount = (int)GoalsManager.DefaultPrizes.Straight;
         }
-        else if (IsThreeOfAKind())
+        else if (IsThreeOfAKind(cards))
         {
             Debug.Log("it is THREE OF A KIND");
-            PlayerAccount.Instance.AddCredits((int)GoalsManager.DefaultPrizes.ThreeOfKind * BetManager.Instance.MyCurrentBet);
+            prizeAmount = (int)GoalsManager.DefaultPrizes.ThreeOfKind;
         }
-        else if (IsDoublePair())
+        else if (IsDoublePair(cards))
         {
             Debug.Log("it is DOUBLE PAIR");
-            PlayerAccount.Instance.AddCredits((int)GoalsManager.DefaultPrizes.DoublePair * BetManager.Instance.MyCurrentBet);
+            prizeAmount = (int)GoalsManager.DefaultPrizes.DoublePair;
         }
         else if (IsHighPair(cards))
         {
             Debug.Log("it is HIGH PAIR");
-            PlayerAccount.Instance.AddCredits((int)GoalsManager.DefaultPrizes.HighPair * BetManager.Instance.MyCurrentBet);
+            prizeAmount = (int)GoalsManager.DefaultPrizes.HighPair;
+        }
+
+        if (prizeAmount > 0 && prizeAllowed)
+        {
+            PlayerAccount.Instance.AddCredits(prizeAmount * BetManager.Instance.MyCurrentBet);
         }
     }
 
@@ -130,7 +125,7 @@ public class HandEvaluator : MonoBehaviour
         }
     }
 
-    private bool IsFiveOfAKind()
+    private bool IsFiveOfAKind(List<Card> cards)
     {
         bool isThereFours = false;
         foreach (KeyValuePair<int, int> keyValue in CardValueCountDictionary)
@@ -144,13 +139,18 @@ public class HandEvaluator : MonoBehaviour
 
         if (isThereFours && jokerTotal > 0)
         {
+            foreach (Card element in cards)
+            {
+                element.ParentCardSlot.LockCard();
+            }
+
             return true;
         }
 
         return false;
     }
 
-    private bool IsFlush()
+    private bool IsFlush(List<Card> cards)
     {
         if (heartTotal + jokerTotal == 5 || diamondTotal + jokerTotal == 5 || clubTotal + jokerTotal == 5 || spadeTotal + jokerTotal == 5)
         {
@@ -160,7 +160,7 @@ public class HandEvaluator : MonoBehaviour
         return false;
     }
 
-    private bool IsPoker()
+    private bool IsPoker(List<Card> cards)
     {
         bool isThereFours = false;
         bool isThereThrees = false;
@@ -230,7 +230,7 @@ public class HandEvaluator : MonoBehaviour
 
     private bool IsStraightFlush(List<Card> cards)
     {
-        return IsStraight(cards) && IsFlush();
+        return IsStraight(cards) && IsFlush(cards);
     }
 
     private bool IsFullHouse(List<Card> cards)
@@ -253,7 +253,7 @@ public class HandEvaluator : MonoBehaviour
         return false;
     }
 
-    private bool IsThreeOfAKind()
+    private bool IsThreeOfAKind(List<Card> cards)
     {
         bool isThereThrees = false;
 
@@ -285,7 +285,7 @@ public class HandEvaluator : MonoBehaviour
         return false;
     }
 
-    private bool IsDoublePair()
+    private bool IsDoublePair(List<Card> cards)
     {
         bool pairOne = false;
         bool pairTwo = false;
