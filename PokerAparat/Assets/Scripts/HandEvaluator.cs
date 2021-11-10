@@ -40,6 +40,11 @@ public class HandEvaluator : MonoBehaviour
         // sort by card value
         cards = cards.OrderBy(ob => ob.CardValue).ToList();
 
+        foreach (Card element in cards)
+        {
+            element.ParentCardSlot.ResetSlot();
+        }
+
         AnalyzeCards(cards);
 
         if (IsFiveOfAKind(cards))
@@ -154,6 +159,11 @@ public class HandEvaluator : MonoBehaviour
     {
         if (heartTotal + jokerTotal == 5 || diamondTotal + jokerTotal == 5 || clubTotal + jokerTotal == 5 || spadeTotal + jokerTotal == 5)
         {
+            foreach (Card element in cards)
+            {
+                element.ParentCardSlot.LockCard();
+            }
+
             return true;
         }
 
@@ -164,17 +174,20 @@ public class HandEvaluator : MonoBehaviour
     {
         bool isThereFours = false;
         bool isThereThrees = false;
+        int cardValue = 0;
 
         foreach (KeyValuePair<int, int> keyValue in CardValueCountDictionary)
         {
             if (keyValue.Value == 4)
             {
+                cardValue = keyValue.Key;
                 isThereFours = true;
                 break;
             }
 
             if (keyValue.Value == 3)
             {
+                cardValue = keyValue.Key;
                 isThereThrees = true;
                 break;
             }
@@ -182,11 +195,25 @@ public class HandEvaluator : MonoBehaviour
 
         if (isThereFours)
         {
+            foreach (Card element in cards)
+            {
+                if (element.CardValue == cardValue)
+                    element.ParentCardSlot.LockCard();
+            }
+
             return true;
         }
 
         if (isThereThrees && jokerTotal > 0)
         {
+            foreach (Card element in cards)
+            {
+                if (element.CardValue == cardValue || (element.CardValue == 0 && element.CardType == Card.CardTypeEnum.Joker))
+                {
+                    element.ParentCardSlot.LockCard();
+                }
+            }
+
             return true;
         }
 
@@ -209,6 +236,11 @@ public class HandEvaluator : MonoBehaviour
             cards[2].CardValue + 1 == cards[3].CardValue &&
             cards[3].CardValue + 1 == cards[4].CardValue)
         {
+            cards[0].ParentCardSlot.LockCard();
+            cards[1].ParentCardSlot.LockCard();
+            cards[2].ParentCardSlot.LockCard();
+            cards[3].ParentCardSlot.LockCard();
+            cards[4].ParentCardSlot.LockCard();
             return true;
         }
 
@@ -238,8 +270,22 @@ public class HandEvaluator : MonoBehaviour
         if (jokerTotal > 0)
         {
             if ((cards[4].CardValue == cards[3].CardValue && cards[4].CardValue == cards[2].CardValue) ||
-            (cards[1].CardValue == cards[2].CardValue && cards[1].CardValue == cards[3].CardValue))
+            (cards[1].CardValue == cards[2].CardValue && cards[1].CardValue == cards[3].CardValue) ||
+            (cards[1].CardValue == cards[2].CardValue && cards[3].CardValue == cards[4].CardValue))
             {
+                cards[1].ParentCardSlot.LockCard();
+                cards[2].ParentCardSlot.LockCard();
+                cards[3].ParentCardSlot.LockCard();
+                cards[4].ParentCardSlot.LockCard();
+
+                foreach (Card element in cards)
+                {
+                    if (element.CardValue == 0 && element.CardType == Card.CardTypeEnum.Joker)
+                    {
+                        element.ParentCardSlot.LockCard();
+                    }
+                }
+
                 return true;
             }
         }
@@ -247,6 +293,11 @@ public class HandEvaluator : MonoBehaviour
         if ((cards[0].CardValue == cards[1].CardValue && cards[0].CardValue == cards[2].CardValue && cards[3].CardValue == cards[4].CardValue) ||
             (cards[0].CardValue == cards[1].CardValue && cards[2].CardValue == cards[3].CardValue && cards[2].CardValue == cards[4].CardValue))
         {
+            cards[0].ParentCardSlot.LockCard();
+            cards[1].ParentCardSlot.LockCard();
+            cards[2].ParentCardSlot.LockCard();
+            cards[3].ParentCardSlot.LockCard();
+            cards[4].ParentCardSlot.LockCard();
             return true;
         }
 
@@ -256,11 +307,13 @@ public class HandEvaluator : MonoBehaviour
     private bool IsThreeOfAKind(List<Card> cards)
     {
         bool isThereThrees = false;
+        int cardValue = 0;
 
         foreach (KeyValuePair<int, int> keyValue in CardValueCountDictionary)
         {
             if (keyValue.Value == 3)
             {
+                cardValue = keyValue.Key;
                 isThereThrees = true;
                 break;
             }
@@ -268,6 +321,11 @@ public class HandEvaluator : MonoBehaviour
 
         if (isThereThrees)
         {
+            foreach (Card element in cards)
+            {
+                if (element.CardValue == cardValue)
+                    element.ParentCardSlot.LockCard();
+            }
             return true;
         }
 
@@ -277,6 +335,16 @@ public class HandEvaluator : MonoBehaviour
             {
                 if (keyValue.Value == 2)
                 {
+                    cardValue = keyValue.Key;
+
+                    foreach (Card element in cards)
+                    {
+                        if (element.CardValue == cardValue || (element.CardValue == 0 && element.CardType == Card.CardTypeEnum.Joker))
+                        {
+                            element.ParentCardSlot.LockCard();
+                        }
+                    }
+
                     return true;
                 }
             }
@@ -289,17 +357,21 @@ public class HandEvaluator : MonoBehaviour
     {
         bool pairOne = false;
         bool pairTwo = false;
+        int cardValue_1 = 0;
+        int cardValue_2 = 0;
 
         foreach (KeyValuePair<int, int> keyValue in CardValueCountDictionary)
         {
             if (keyValue.Value == 2 && !pairOne)
             {
+                cardValue_1 = keyValue.Key;
                 pairOne = true;
                 continue;
             }
 
             if (keyValue.Value == 2 && !pairTwo)
             {
+                cardValue_2 = keyValue.Key;
                 pairTwo = true;
                 continue;
             }
@@ -307,6 +379,14 @@ public class HandEvaluator : MonoBehaviour
 
         if (pairOne && pairTwo)
         {
+            foreach (Card element in cards)
+            {
+                if (element.CardValue == cardValue_1 || element.CardValue == cardValue_2)
+                {
+                    element.ParentCardSlot.LockCard();
+                }
+            }
+
             return true;
         }
 
@@ -315,6 +395,17 @@ public class HandEvaluator : MonoBehaviour
 
     private bool IsHighPair(List<Card> cards)
     {
+        int cardValue = 0;
+
+        foreach (KeyValuePair<int, int> keyValue in CardValueCountDictionary)
+        {
+            if ((keyValue.Key >= 11 && keyValue.Value > 1 && jokerTotal == 0) ||
+                (keyValue.Key >= 11 && jokerTotal > 0))
+            {
+                cardValue = keyValue.Key;
+            }
+        }
+
         if (jokerTotal > 0)
         {
             if ((cards[4].CardValue >= 11) ||
@@ -322,6 +413,14 @@ public class HandEvaluator : MonoBehaviour
                 (cards[2].CardValue >= 11) ||
                 (cards[1].CardValue >= 11))
             {
+                foreach (Card element in cards)
+                {
+                    if (element.CardValue == cardValue || (element.CardValue == 0 && element.CardType == Card.CardTypeEnum.Joker))
+                    {
+                        element.ParentCardSlot.LockCard();
+                    }
+                }
+
                 return true;
             }
         }
@@ -332,6 +431,13 @@ public class HandEvaluator : MonoBehaviour
                 (cards[2].CardValue == cards[1].CardValue && cards[2].CardValue >= 11) ||
                 (cards[1].CardValue == cards[0].CardValue && cards[1].CardValue >= 11))
             {
+                foreach (Card element in cards)
+                {
+                    if (element.CardValue == cardValue || (element.CardValue == 0 && element.CardType == Card.CardTypeEnum.Joker))
+                    {
+                        element.ParentCardSlot.LockCard();
+                    }
+                }
                 return true;
             }
         }

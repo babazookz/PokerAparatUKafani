@@ -21,6 +21,11 @@ public class CardSlot : MonoBehaviour, IPointerClickHandler
         DOTween.Init();
     }
 
+    private void Start()
+    {
+        BackgroundWhenLocked.color = UIManager.Instance.SelectedCardBackgroundColor;
+    }
+
     public void ShowCardBack()
     {
         CardBack.DORotate(new Vector3(0f, 0f, 0f), .75f, RotateMode.Fast).Play();
@@ -61,8 +66,11 @@ public class CardSlot : MonoBehaviour, IPointerClickHandler
 
     public void LockCard()
     {
-        IsLocked = true;
-        HoldText.gameObject.SetActive(IsLocked);
-        BackgroundWhenLocked.enabled = IsLocked;
+        if (!IsLocked)
+        {
+            IsLocked = true;
+            HoldText.gameObject.SetActive(IsLocked);
+            BackgroundWhenLocked.enabled = IsLocked;
+        }
     }
 }
