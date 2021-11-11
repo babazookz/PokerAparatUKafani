@@ -28,6 +28,7 @@ public class HandEvaluator : MonoBehaviour
 
     public void EvaluateHand(List<Card> cards, bool prizeAllowed = true)
     {
+        GoalsManager.Instance.ShowWinCombinationBorder(GoalsManager.DefaultPrizes.Nothing);
         CardValueCountDictionary.Clear();
         heartTotal = 0;
         diamondTotal = 0;
@@ -51,51 +52,61 @@ public class HandEvaluator : MonoBehaviour
         {
             Debug.Log("it is FIVE OF A KIND");
             prizeAmount = (int)GoalsManager.DefaultPrizes.FiveOfKind;
+            GoalsManager.Instance.ShowWinCombinationBorder(GoalsManager.DefaultPrizes.FiveOfKind);
         }
         else if (IsRoyalFlush(cards))
         {
             Debug.Log("it is ROYAL FLUSH");
             prizeAmount = (int)GoalsManager.DefaultPrizes.RoyalFlush;
+            GoalsManager.Instance.ShowWinCombinationBorder(GoalsManager.DefaultPrizes.RoyalFlush);
         }
         else if (IsStraightFlush(cards))
         {
             Debug.Log("it is STREET FLUSH");
             prizeAmount = (int)GoalsManager.DefaultPrizes.StraightFlush;
+            GoalsManager.Instance.ShowWinCombinationBorder(GoalsManager.DefaultPrizes.StraightFlush);
         }
         else if (IsPoker(cards))
         {
             Debug.Log("it is POKER");
             prizeAmount = (int)GoalsManager.DefaultPrizes.Poker;
+            GoalsManager.Instance.ShowWinCombinationBorder(GoalsManager.DefaultPrizes.Poker);
         }
         else if (IsFullHouse(cards))
         {
             Debug.Log("it is FULL HOUSE");
             prizeAmount = (int)GoalsManager.DefaultPrizes.FullHouse;
+            GoalsManager.Instance.ShowWinCombinationBorder(GoalsManager.DefaultPrizes.FullHouse);
         }
         else if (IsFlush(cards))
         {
             Debug.Log("it is FLUSH");
             prizeAmount = (int)GoalsManager.DefaultPrizes.Flush;
+            GoalsManager.Instance.ShowWinCombinationBorder(GoalsManager.DefaultPrizes.Flush);
         }
         else if (IsStraight(cards))
         {
             Debug.Log("it is STREET");
             prizeAmount = (int)GoalsManager.DefaultPrizes.Straight;
+            GoalsManager.Instance.ShowWinCombinationBorder(GoalsManager.DefaultPrizes.Straight);
         }
         else if (IsThreeOfAKind(cards))
         {
             Debug.Log("it is THREE OF A KIND");
             prizeAmount = (int)GoalsManager.DefaultPrizes.ThreeOfKind;
+            GoalsManager.Instance.ShowWinCombinationBorder(GoalsManager.DefaultPrizes.ThreeOfKind);
         }
         else if (IsDoublePair(cards))
         {
             Debug.Log("it is DOUBLE PAIR");
             prizeAmount = (int)GoalsManager.DefaultPrizes.DoublePair;
+            GoalsManager.Instance.ShowWinCombinationBorder(GoalsManager.DefaultPrizes.DoublePair);
         }
         else if (IsHighPair(cards))
         {
             Debug.Log("it is HIGH PAIR");
             prizeAmount = (int)GoalsManager.DefaultPrizes.HighPair;
+            GoalsManager.Instance.ShowWinCombinationBorder(GoalsManager.DefaultPrizes.HighPair);
         }
 
         if (prizeAmount > 0 && prizeAllowed)

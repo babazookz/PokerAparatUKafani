@@ -4068,6 +4068,16 @@ MonoBehaviour:
   FlushPrize: {fileID: 1370053726}
   DoublePairPrize: {fileID: 1856081683}
   StreetPrize: {fileID: 1409220681}
+  FiveOfAKindBorder: {fileID: 670782860}
+  PokerBorder: {fileID: 255017050}
+  RoyalFlushBorder: {fileID: 404716567}
+  StreetFlushBorder: {fileID: 632222012}
+  ThreeOfAKindBorder: {fileID: 1483326352}
+  HighPairBorder: {fileID: 308428257}
+  FullHouseBorder: {fileID: 118333433}
+  FlushBorder: {fileID: 1924411741}
+  DoublePairBorder: {fileID: 1186527972}
+  StreetBorder: {fileID: 198267569}
 --- !u!4 &1085290783
 Transform:
   m_ObjectHideFlags: 0
