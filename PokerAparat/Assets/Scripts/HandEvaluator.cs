@@ -233,12 +233,21 @@ public class HandEvaluator : MonoBehaviour
 
     private bool IsStraight(List<Card> cards)
     {
-        // simulate Joker card
         int firstCardValue = 0;
+
+        // situation 1
+        // 10, 11, 12, 13, 14
+
+        // situation 2
+        // 0, 10, 11, 12, 13
 
         if (cards[0].CardValue == 0)
         {
             firstCardValue = cards[1].CardValue - 1;
+        }
+        else
+        {
+            firstCardValue = cards[0].CardValue;
         }
 
         //if 5 consecutive values
