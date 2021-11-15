@@ -7,6 +7,13 @@ public class UIManager : MonoBehaviour
 {
     public Color SelectedCardBackgroundColor;
     private static UIManager _instance;
+    public Transform DoubleOrNothingPanel;
+    public Transform DoubleOrNothingTopPanel;
+    public Transform DoubleOrNothingButtonPanel;
+    public Transform MainSlotPanel;
+    public Transform GoalsTopPanel;
+    public Transform MainSlotButtonPanel;
+    public Font AppFont;
 
     public static UIManager Instance
     {
@@ -31,5 +38,19 @@ public class UIManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void ToggleDoubleOrNothingScreen()
+    {
+        DoubleOrNothingPanel.gameObject.SetActive(!DoubleOrNothingPanel.gameObject.activeSelf);
+        DoubleOrNothingTopPanel.gameObject.SetActive(!DoubleOrNothingTopPanel.gameObject.activeSelf);
+        DoubleOrNothingButtonPanel.gameObject.SetActive(!DoubleOrNothingButtonPanel.gameObject.activeSelf);
+    }
+
+    public void ToggleMainSlotScreen()
+    {
+        MainSlotPanel.gameObject.SetActive(!MainSlotPanel.gameObject.activeSelf);
+        GoalsTopPanel.gameObject.SetActive(!GoalsTopPanel.gameObject.activeSelf);
+        MainSlotButtonPanel.gameObject.SetActive(!MainSlotButtonPanel.gameObject.activeSelf);
     }
 }

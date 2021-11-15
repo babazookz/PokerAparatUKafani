@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using DG.Tweening;
 using UnityEngine.EventSystems;
+using DG.Tweening;
 
 public class CardSlot : MonoBehaviour, IPointerClickHandler
 {
@@ -18,7 +18,6 @@ public class CardSlot : MonoBehaviour, IPointerClickHandler
     private void Awake()
     {
         HoldText.gameObject.SetActive(IsLocked);
-        DOTween.Init();
     }
 
     private void Start()

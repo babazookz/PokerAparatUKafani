@@ -29,8 +29,13 @@ public class CardSlotManager : MonoBehaviour
 
     void DealCards()
     {
+        StartCoroutine(DealCardsCoroutine());
+    }
+
+    IEnumerator DealCardsCoroutine()
+    {
         HashSet<Card.CardTypeEnum> _cardsNoLongerAvailable = ClearUnlockedCards();
-        DrawCards(_cardsNoLongerAvailable);
+        yield return StartCoroutine(DrawCards(_cardsNoLongerAvailable));
 
         List<Card> allCards = new List<Card>();
         foreach (CardSlot cs in _cardSlots)
@@ -61,8 +66,6 @@ public class CardSlotManager : MonoBehaviour
         {
             PlayerAccount.Instance.AddCredits(-BetManager.Instance.MyCurrentBet);
         }
-
-
     }
 
     void PrepareCardSlots()
@@ -119,11 +122,11 @@ public class CardSlotManager : MonoBehaviour
         return cardsNoLongerAvailable;
     }
 
-    void DrawCards(HashSet<Card.CardTypeEnum> _cardsNoLongerAvailable)
+    IEnumerator DrawCards(HashSet<Card.CardTypeEnum> _cardsNoLongerAvailable)
     {
         if (_cardSlots == null || _cardSlots.Count == 0)
         {
-            return;
+            yield return null;
         }
 
         HashSet<Card.CardTypeEnum> cardTypeDrawn = new HashSet<Card.CardTypeEnum>();
@@ -148,6 +151,11 @@ public class CardSlotManager : MonoBehaviour
             }
         }
 
+        yield return StartCoroutine(ShowCards(allAvailableCards, emptySlots));
+    }
+
+    private IEnumerator ShowCards(List<Card.CardTypeEnum> allAvailableCards, List<CardSlot> emptySlots)
+    {
         foreach (CardSlot cse in emptySlots)
         {
             Card.CardTypeEnum randomAvailableCard = allAvailableCards[Random.Range(0, allAvailableCards.Count)];
@@ -159,9 +167,12 @@ public class CardSlotManager : MonoBehaviour
                 cse.DrawnCard = card;
                 card.gameObject.SetActive(true);
                 card.transform.SetParent(cse.transform, false);
+
+                // maybe animation of rotating the card?
                 cse.CardBack.gameObject.SetActive(false);
                 card.ParentCardSlot = cse;
             }
+            yield return new WaitForSeconds(0.075f);
         }
     }
 }
