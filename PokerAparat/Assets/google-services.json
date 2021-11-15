@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "361263937720",
+    "project_id": "poker-aparat-u-kafani",
+    "storage_bucket": "poker-aparat-u-kafani.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:361263937720:android:c06cdd81648acadcff5c4d",
+        "android_client_info": {
+          "package_name": "com.thornplay.pokerukafani"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "361263937720-gi018t2ordt6oj1rhdjpunh0cj44fub3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4POSmmEl8hJEXlotWVuEI_IWNNvkVgt0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "361263937720-gi018t2ordt6oj1rhdjpunh0cj44fub3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
