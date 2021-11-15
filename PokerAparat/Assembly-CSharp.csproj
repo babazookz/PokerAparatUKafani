@@ -58,6 +58,7 @@
     <Compile Include="Assets/Scripts/HandEvaluator.cs" />
     <Compile Include="Assets/Scripts/CardDealer.cs" />
     <Compile Include="Assets/Scripts/PlayerAccount.cs" />
+    <Compile Include="Assets/Scripts/UnityBannerAd.cs" />
     <Compile Include="Assets/Scripts/UIManager.cs" />
     <Compile Include="Assets/Demigiant/DOTween/Modules/DOTweenModulePhysics2D.cs" />
     <Compile Include="Assets/Scripts/CardSlot.cs" />
@@ -66,16 +67,42 @@
     <Compile Include="Assets/Demigiant/DOTween/Modules/DOTweenModulePhysics.cs" />
     <Compile Include="Assets/Demigiant/DOTween/Modules/DOTweenModuleUnityVersion.cs" />
     <Compile Include="Assets/Demigiant/DOTween/Modules/DOTweenModuleSprite.cs" />
+    <Compile Include="Assets/Scripts/UnityAdsManager.cs" />
     <Compile Include="Assets/Demigiant/DOTween/Modules/DOTweenModuleUtils.cs" />
     <Compile Include="Assets/Demigiant/DOTween/Modules/DOTweenModuleUI.cs" />
     <Compile Include="Assets/Demigiant/DOTween/Modules/DOTweenModuleAudio.cs" />
-    <Compile Include="Assets/Scripts/UnityAdsManager.cs" />
-    <Compile Include="Assets/Scripts/UnityBannerAd.cs" />
+    <Compile Include="Assets/Scripts/DoubleOrNothingManager.cs" />
+    <Compile Include="Assets/Scripts/PoolManager.cs" />
+    <Compile Include="Assets/Scripts/ApplyFontController.cs" />
+    <Compile Include="Assets/Scripts/DoubleOrNothingSlot.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets/Parse/Plugins/Unity.Compat.dll" />
+    <None Include="Assets/Firebase/Plugins/Firebase.Analytics.dll" />
+    <None Include="Assets/Firebase/Plugins/x86_64/FirebaseCppDatabase.dll" />
+    <None Include="Assets/Firebase/Plugins/x86_64/FirebaseCppApp-8_6_1.dll" />
+    <None Include="Assets/Firebase/Plugins/iOS/Firebase.Analytics.dll" />
+    <None Include="Assets/Firebase/Plugins/Firebase.App.dll" />
+    <None Include="Assets/Parse/Plugins/Unity.Tasks.dll" />
     <None Include="Assets/Demigiant/DOTween/DOTween.XML" />
+    <None Include="Assets/Firebase/Plugins/x86_64/FirebaseCppAnalytics.dll" />
+    <None Include="Assets/Firebase/Plugins/x86_64/FirebaseCppAuth.dll" />
+    <None Include="Assets/Firebase/Plugins/Firebase.TaskExtension.dll" />
+    <None Include="Assets/Firebase/m2repository/com/google/firebase/firebase-app-unity/maven-metadata.xml" />
+    <None Include="Assets/Firebase/Plugins/Firebase.Auth.dll" />
     <None Include="Assets/Demigiant/DOTween/DOTween.dll" />
+    <None Include="Assets/Firebase/Plugins/Firebase.Database.dll" />
+    <None Include="Assets/Firebase/m2repository/com/google/firebase/firebase-analytics-unity/maven-metadata.xml" />
+    <None Include="Assets/Firebase/m2repository/com/google/firebase/firebase-auth-unity/maven-metadata.xml" />
+    <None Include="Assets/Firebase/Plugins/iOS/Firebase.Auth.dll" />
+    <None Include="Assets/Firebase/Plugins/iOS/Firebase.Database.dll" />
     <None Include="Assets/Demigiant/DOTween/readme.txt" />
+    <None Include="Assets/Parse/Plugins/dotNet45/Unity.Compat.dll" />
+    <None Include="Assets/Firebase/Plugins/Firebase.Platform.dll" />
+    <None Include="Assets/Parse/Plugins/dotNet45/Unity.Tasks.dll" />
+    <None Include="Assets/Firebase/m2repository/com/google/firebase/firebase-database-unity/maven-metadata.xml" />
+    <None Include="Assets/Firebase/Plugins/Google.MiniJson.dll" />
+    <None Include="Assets/Firebase/Plugins/iOS/Firebase.App.dll" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -296,6 +323,33 @@
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>Library/PackageCache/com.unity.nuget.newtonsoft-json@2.0.0/Runtime/Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Firebase.App">
+      <HintPath>Assets/Firebase/Plugins/Firebase.App.dll</HintPath>
+    </Reference>
+    <Reference Include="Firebase.Analytics">
+      <HintPath>Assets/Firebase/Plugins/Firebase.Analytics.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Tasks">
+      <HintPath>Assets/Parse/Plugins/dotNet45/Unity.Tasks.dll</HintPath>
+    </Reference>
+    <Reference Include="Firebase.TaskExtension">
+      <HintPath>Assets/Firebase/Plugins/Firebase.TaskExtension.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.MiniJson">
+      <HintPath>Assets/Firebase/Plugins/Google.MiniJson.dll</HintPath>
+    </Reference>
+    <Reference Include="Firebase.Platform">
+      <HintPath>Assets/Firebase/Plugins/Firebase.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Compat">
+      <HintPath>Assets/Parse/Plugins/dotNet45/Unity.Compat.dll</HintPath>
+    </Reference>
+    <Reference Include="Firebase.Database">
+      <HintPath>Assets/Firebase/Plugins/Firebase.Database.dll</HintPath>
+    </Reference>
+    <Reference Include="Firebase.Auth">
+      <HintPath>Assets/Firebase/Plugins/Firebase.Auth.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.iOS.Extensions.Xcode">
       <HintPath>/Applications/Unity/Hub/Editor/2020.3.21f1/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
