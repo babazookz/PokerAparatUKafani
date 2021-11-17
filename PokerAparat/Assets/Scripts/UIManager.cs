@@ -17,6 +17,8 @@ public class UIManager : MonoBehaviour
     public Button DrawCardsButton;
     public Text WinCombinationDescriptionText;
     public Text WinAmountText;
+    public Text HighCardsExplanationText;
+    public Button LowCardButton, HighCardButton, HalfButton;
 
     public static UIManager Instance
     {
@@ -40,6 +42,10 @@ public class UIManager : MonoBehaviour
         EventManager.Instance.GamblingReady.AddListener(OnGamblingReadyHandler);
         EventManager.Instance.NewRoundReady.AddListener(OnGamblingReadyHandler);
         EventManager.Instance.WinningCombinationTextUpdate.AddListener(PrepareWinningCombinationText);
+
+        LowCardButton.onClick.AddListener(DrawLowCard);
+        HighCardButton.onClick.AddListener(DrawHighCard);
+        HalfButton.onClick.AddListener(HalfThePrizeAction);
     }
 
     private void OnDestroy()
@@ -60,6 +66,7 @@ public class UIManager : MonoBehaviour
         ToggleMainSlotScreen(false);
         ToggleDoubleOrNothingScreen(true);
         ToggleGamblingButton(false);
+        ToggleHighCardsExplanation(true);
     }
 
     private void OnGamblingReadyHandler()
@@ -84,6 +91,7 @@ public class UIManager : MonoBehaviour
         ToggleWinningCombinationTopPanel(false);
         ToggleGamblingButton(false);
         ToggleDrawCardsButton(true);
+        ToggleHighCardsExplanation(false);
     }
 
     public void ToggleDoubleOrNothingScreen(bool active)
@@ -126,5 +134,25 @@ public class UIManager : MonoBehaviour
     public void UpdateDoubleOrNothingAmount(int winAmount)
     {
         WinAmountText.text = winAmount.ToString();
+    }
+
+    public void ToggleHighCardsExplanation(bool active)
+    {
+        HighCardsExplanationText.gameObject.SetActive(active);
+    }
+
+    void DrawLowCard()
+    {
+        DoubleOrNothingManager.Instance.DrawNewCard(true);
+    }
+
+    void DrawHighCard()
+    {
+        DoubleOrNothingManager.Instance.DrawNewCard(false);
+    }
+
+    void HalfThePrizeAction()
+    {
+
     }
 }
