@@ -26,7 +26,27 @@ public class HandEvaluator : MonoBehaviour
         _instance = this;
     }
 
-    public void EvaluateHand(List<Card> cards, bool prizeAllowed = true)
+    private void Start()
+    {
+        EventManager.Instance.EvaluateHand.AddListener(OnEvaluateHandHandler);
+    }
+
+    private void OnDestroy()
+    {
+        EventManager.Instance.EvaluateHand.RemoveListener(OnEvaluateHandHandler);
+    }
+
+    private void OnEvaluateHandHandler(List<Card> allCards, CardDealer.DealRoundEnum currentRound)
+    {
+        EvaluateHand(allCards, currentRound);
+    }
+
+    public void AddPrize(int prizeAmount)
+    {
+        PlayerAccount.Instance.AddCredits(prizeAmount * BetManager.Instance.MyCurrentBet);
+    }
+
+    public void EvaluateHand(List<Card> cards, CardDealer.DealRoundEnum currentRound)
     {
         GoalsManager.Instance.ShowWinCombinationBorder(GoalsManager.DefaultPrizes.Nothing);
         CardValueCountDictionary.Clear();
@@ -37,6 +57,7 @@ public class HandEvaluator : MonoBehaviour
         jokerTotal = 0;
 
         int prizeAmount = 0;
+        string winningCombination = string.Empty;
 
         // sort by card value
         cards = cards.OrderBy(ob => ob.CardValue).ToList();
@@ -53,65 +74,76 @@ public class HandEvaluator : MonoBehaviour
             Debug.Log("it is FIVE OF A KIND");
             prizeAmount = (int)GoalsManager.DefaultPrizes.FiveOfKind;
             GoalsManager.Instance.ShowWinCombinationBorder(GoalsManager.DefaultPrizes.FiveOfKind);
+            winningCombination = GoalsManager.Instance.WinCombinationDictionary[GoalsManager.WinCombination.FIVE_OF_A_KIND];
         }
         else if (IsRoyalFlush(cards))
         {
             Debug.Log("it is ROYAL FLUSH");
             prizeAmount = (int)GoalsManager.DefaultPrizes.RoyalFlush;
             GoalsManager.Instance.ShowWinCombinationBorder(GoalsManager.DefaultPrizes.RoyalFlush);
+            winningCombination = GoalsManager.Instance.WinCombinationDictionary[GoalsManager.WinCombination.ROYAL_FLUSH];
         }
         else if (IsStraightFlush(cards))
         {
             Debug.Log("it is STREET FLUSH");
             prizeAmount = (int)GoalsManager.DefaultPrizes.StraightFlush;
             GoalsManager.Instance.ShowWinCombinationBorder(GoalsManager.DefaultPrizes.StraightFlush);
+            winningCombination = GoalsManager.Instance.WinCombinationDictionary[GoalsManager.WinCombination.STRAIGHT_FLUSH];
         }
         else if (IsPoker(cards))
         {
             Debug.Log("it is POKER");
             prizeAmount = (int)GoalsManager.DefaultPrizes.Poker;
             GoalsManager.Instance.ShowWinCombinationBorder(GoalsManager.DefaultPrizes.Poker);
+            winningCombination = GoalsManager.Instance.WinCombinationDictionary[GoalsManager.WinCombination.POKER];
         }
         else if (IsFullHouse(cards))
         {
             Debug.Log("it is FULL HOUSE");
             prizeAmount = (int)GoalsManager.DefaultPrizes.FullHouse;
             GoalsManager.Instance.ShowWinCombinationBorder(GoalsManager.DefaultPrizes.FullHouse);
+            winningCombination = GoalsManager.Instance.WinCombinationDictionary[GoalsManager.WinCombination.FULL_HOUSE];
         }
         else if (IsFlush(cards))
         {
             Debug.Log("it is FLUSH");
             prizeAmount = (int)GoalsManager.DefaultPrizes.Flush;
             GoalsManager.Instance.ShowWinCombinationBorder(GoalsManager.DefaultPrizes.Flush);
+            winningCombination = GoalsManager.Instance.WinCombinationDictionary[GoalsManager.WinCombination.FLUSH];
         }
         else if (IsStraight(cards))
         {
             Debug.Log("it is STREET");
             prizeAmount = (int)GoalsManager.DefaultPrizes.Straight;
             GoalsManager.Instance.ShowWinCombinationBorder(GoalsManager.DefaultPrizes.Straight);
+            winningCombination = GoalsManager.Instance.WinCombinationDictionary[GoalsManager.WinCombination.STRAIGHT];
         }
         else if (IsThreeOfAKind(cards))
         {
             Debug.Log("it is THREE OF A KIND");
             prizeAmount = (int)GoalsManager.DefaultPrizes.ThreeOfKind;
             GoalsManager.Instance.ShowWinCombinationBorder(GoalsManager.DefaultPrizes.ThreeOfKind);
+            winningCombination = GoalsManager.Instance.WinCombinationDictionary[GoalsManager.WinCombination.THREE_OF_A_KIND];
         }
         else if (IsDoublePair(cards))
         {
             Debug.Log("it is DOUBLE PAIR");
             prizeAmount = (int)GoalsManager.DefaultPrizes.DoublePair;
             GoalsManager.Instance.ShowWinCombinationBorder(GoalsManager.DefaultPrizes.DoublePair);
+            winningCombination = GoalsManager.Instance.WinCombinationDictionary[GoalsManager.WinCombination.DOUBLE_PAIR];
         }
         else if (IsHighPair(cards))
         {
             Debug.Log("it is HIGH PAIR");
             prizeAmount = (int)GoalsManager.DefaultPrizes.HighPair;
             GoalsManager.Instance.ShowWinCombinationBorder(GoalsManager.DefaultPrizes.HighPair);
+            winningCombination = GoalsManager.Instance.WinCombinationDictionary[GoalsManager.WinCombination.HIGH_PAIR];
         }
 
-        if (prizeAmount > 0 && prizeAllowed)
+        if(currentRound == CardDealer.DealRoundEnum.Second && prizeAmount > 0)
         {
-            PlayerAccount.Instance.AddCredits(prizeAmount * BetManager.Instance.MyCurrentBet);
+            EventManager.Instance.GamblingReady.Invoke();
+            EventManager.Instance.WinningCombinationTextUpdate.Invoke(winningCombination, prizeAmount);
         }
     }
 

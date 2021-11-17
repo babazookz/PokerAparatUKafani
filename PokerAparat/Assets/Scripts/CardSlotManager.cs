@@ -9,7 +9,6 @@ public class CardSlotManager : MonoBehaviour
     private static CardSlotManager _instance;
     public Transform CardSlotParent;
     private List<CardSlot> _cardSlots;
-    public Button DrawCardsButton;
 
     public static CardSlotManager Instance
     {
@@ -23,17 +22,55 @@ public class CardSlotManager : MonoBehaviour
     {
         _instance = this;
         _cardSlots = new List<CardSlot>();
-        DrawCardsButton.onClick.AddListener(DealCards);
         PrepareCardSlots();
     }
 
-    void DealCards()
+    void Start()
+    {
+        EventManager.Instance.DealRoundChange.AddListener(OnDealRoundChangeHandler);
+    }
+
+    private void OnDestroy()
+    {
+        EventManager.Instance.DealRoundChange.RemoveListener(OnDealRoundChangeHandler);
+    }
+
+    private void OnDealRoundChangeHandler(CardDealer.DealRoundEnum newRound)
+    {
+        if (CardDealer.Instance.DealRound == CardDealer.DealRoundEnum.Zero)
+        {
+            CardDealer.Instance.DealRound = CardDealer.DealRoundEnum.First;
+        }
+        else if (CardDealer.Instance.DealRound == CardDealer.DealRoundEnum.First)
+        {
+            CardDealer.Instance.DealRound = CardDealer.DealRoundEnum.Second;
+        }
+        else
+        {
+            CardDealer.Instance.DealRound = CardDealer.DealRoundEnum.First;
+        }
+
+        if (CardDealer.Instance.DealRound == CardDealer.DealRoundEnum.First)
+        {
+            PlayerAccount.Instance.AddCredits(-BetManager.Instance.MyCurrentBet);
+        }
+    }
+
+    
+
+    void PrepareGambleScreen()
+    {
+
+    }
+
+    public void DealCards()
     {
         StartCoroutine(DealCardsCoroutine());
     }
 
     IEnumerator DealCardsCoroutine()
     {
+        GoalsManager.Instance.ShowWinCombinationBorder(GoalsManager.DefaultPrizes.Nothing);
         HashSet<Card.CardTypeEnum> _cardsNoLongerAvailable = ClearUnlockedCards();
         yield return StartCoroutine(DrawCards(_cardsNoLongerAvailable));
 
@@ -46,26 +83,8 @@ public class CardSlotManager : MonoBehaviour
             }
         }
 
-        if (CardDealer.Instance.DealRound == CardDealer.DealRoundEnum.Zero)
-        {
-            CardDealer.Instance.DealRound = CardDealer.DealRoundEnum.First;
-            HandEvaluator.Instance.EvaluateHand(allCards, false);
-        }
-        else if (CardDealer.Instance.DealRound == CardDealer.DealRoundEnum.First)
-        {
-            CardDealer.Instance.DealRound = CardDealer.DealRoundEnum.Second;
-            HandEvaluator.Instance.EvaluateHand(allCards);
-        }
-        else
-        {
-            CardDealer.Instance.DealRound = CardDealer.DealRoundEnum.First;
-            HandEvaluator.Instance.EvaluateHand(allCards, false);
-        }
-
-        if (CardDealer.Instance.DealRound == CardDealer.DealRoundEnum.First)
-        {
-            PlayerAccount.Instance.AddCredits(-BetManager.Instance.MyCurrentBet);
-        }
+        EventManager.Instance.DealRoundChange.Invoke(CardDealer.Instance.DealRound);
+        EventManager.Instance.EvaluateHand.Invoke(allCards, CardDealer.Instance.DealRound);
     }
 
     void PrepareCardSlots()

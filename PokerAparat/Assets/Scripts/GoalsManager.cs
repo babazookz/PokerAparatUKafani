@@ -7,7 +7,10 @@ using DG.Tweening;
 public class GoalsManager : MonoBehaviour
 {
     public enum DefaultPrizes { Nothing = 0, HighPair = 1, DoublePair = 2, ThreeOfKind = 3, Straight = 5, Flush = 7, FullHouse = 10, Poker = 40, StraightFlush = 100, RoyalFlush = 500, FiveOfKind = 1100 }
+    public enum WinCombination { FIVE_OF_A_KIND, POKER, ROYAL_FLUSH, STRAIGHT_FLUSH, THREE_OF_A_KIND, HIGH_PAIR, FULL_HOUSE, FLUSH, DOUBLE_PAIR, STRAIGHT }
     private static GoalsManager _instance;
+
+    public Dictionary<WinCombination, string> WinCombinationDictionary = new Dictionary<WinCombination, string>();
 
     [Header("Goal Prizes")]
     public Text FiveOfAKindPrize;
@@ -45,6 +48,19 @@ public class GoalsManager : MonoBehaviour
     {
         _instance = this;
         DOTween.Init();
+
+        WinCombinationDictionary.Clear();
+
+        WinCombinationDictionary.Add(WinCombination.FIVE_OF_A_KIND, "5 ISTIH");
+        WinCombinationDictionary.Add(WinCombination.POKER, "POKER");
+        WinCombinationDictionary.Add(WinCombination.ROYAL_FLUSH, "SKALA U BOJI DO ASA");
+        WinCombinationDictionary.Add(WinCombination.STRAIGHT_FLUSH, "SKALA U BOJI");
+        WinCombinationDictionary.Add(WinCombination.THREE_OF_A_KIND, "3 ISTE");
+        WinCombinationDictionary.Add(WinCombination.HIGH_PAIR, "VISOKI PAR");
+        WinCombinationDictionary.Add(WinCombination.FULL_HOUSE, "FUL");
+        WinCombinationDictionary.Add(WinCombination.FLUSH, "BOJA");
+        WinCombinationDictionary.Add(WinCombination.DOUBLE_PAIR, "2 PARA");
+        WinCombinationDictionary.Add(WinCombination.STRAIGHT, "SKALA");
     }
 
     void Start()

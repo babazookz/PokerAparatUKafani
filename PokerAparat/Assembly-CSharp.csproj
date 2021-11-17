@@ -53,6 +53,7 @@
     <UnityVersion>2020.3.21f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Assets/Scripts/ApplyFontController.cs" />
     <Compile Include="Assets/Scripts/BetManager.cs" />
     <Compile Include="Assets/Scripts/GoalsManager.cs" />
     <Compile Include="Assets/Scripts/HandEvaluator.cs" />
@@ -60,6 +61,8 @@
     <Compile Include="Assets/Scripts/PlayerAccount.cs" />
     <Compile Include="Assets/Scripts/UnityBannerAd.cs" />
     <Compile Include="Assets/Scripts/UIManager.cs" />
+    <Compile Include="Assets/Scripts/DoubleOrNothingSlot.cs" />
+    <Compile Include="Assets/Scripts/DoubleOrNothingManager.cs" />
     <Compile Include="Assets/Demigiant/DOTween/Modules/DOTweenModulePhysics2D.cs" />
     <Compile Include="Assets/Scripts/CardSlot.cs" />
     <Compile Include="Assets/Scripts/Card.cs" />
@@ -70,11 +73,10 @@
     <Compile Include="Assets/Scripts/UnityAdsManager.cs" />
     <Compile Include="Assets/Demigiant/DOTween/Modules/DOTweenModuleUtils.cs" />
     <Compile Include="Assets/Demigiant/DOTween/Modules/DOTweenModuleUI.cs" />
-    <Compile Include="Assets/Demigiant/DOTween/Modules/DOTweenModuleAudio.cs" />
-    <Compile Include="Assets/Scripts/DoubleOrNothingManager.cs" />
     <Compile Include="Assets/Scripts/PoolManager.cs" />
-    <Compile Include="Assets/Scripts/ApplyFontController.cs" />
-    <Compile Include="Assets/Scripts/DoubleOrNothingSlot.cs" />
+    <Compile Include="Assets/Demigiant/DOTween/Modules/DOTweenModuleAudio.cs" />
+    <Compile Include="Assets/Scripts/CustomEvent.cs" />
+    <Compile Include="Assets/Scripts/EventManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets/Parse/Plugins/Unity.Compat.dll" />
@@ -318,35 +320,35 @@
     <Reference Include="UnityEditor.UnityConnectModule">
       <HintPath>/Applications/Unity/Hub/Editor/2020.3.21f1/Unity.app/Contents/Managed/UnityEngine/UnityEditor.UnityConnectModule.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Tasks">
+      <HintPath>Assets/Parse/Plugins/dotNet45/Unity.Tasks.dll</HintPath>
+    </Reference>
     <Reference Include="DOTween">
       <HintPath>Assets/Demigiant/DOTween/DOTween.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>Library/PackageCache/com.unity.nuget.newtonsoft-json@2.0.0/Runtime/Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Firebase.App">
       <HintPath>Assets/Firebase/Plugins/Firebase.App.dll</HintPath>
     </Reference>
-    <Reference Include="Firebase.Analytics">
-      <HintPath>Assets/Firebase/Plugins/Firebase.Analytics.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Tasks">
-      <HintPath>Assets/Parse/Plugins/dotNet45/Unity.Tasks.dll</HintPath>
+    <Reference Include="Firebase.Database">
+      <HintPath>Assets/Firebase/Plugins/Firebase.Database.dll</HintPath>
     </Reference>
     <Reference Include="Firebase.TaskExtension">
       <HintPath>Assets/Firebase/Plugins/Firebase.TaskExtension.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>Library/PackageCache/com.unity.nuget.newtonsoft-json@2.0.0/Runtime/Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Firebase.Analytics">
+      <HintPath>Assets/Firebase/Plugins/Firebase.Analytics.dll</HintPath>
+    </Reference>
     <Reference Include="Google.MiniJson">
       <HintPath>Assets/Firebase/Plugins/Google.MiniJson.dll</HintPath>
-    </Reference>
-    <Reference Include="Firebase.Platform">
-      <HintPath>Assets/Firebase/Plugins/Firebase.Platform.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Compat">
       <HintPath>Assets/Parse/Plugins/dotNet45/Unity.Compat.dll</HintPath>
     </Reference>
-    <Reference Include="Firebase.Database">
-      <HintPath>Assets/Firebase/Plugins/Firebase.Database.dll</HintPath>
+    <Reference Include="Firebase.Platform">
+      <HintPath>Assets/Firebase/Plugins/Firebase.Platform.dll</HintPath>
     </Reference>
     <Reference Include="Firebase.Auth">
       <HintPath>Assets/Firebase/Plugins/Firebase.Auth.dll</HintPath>
