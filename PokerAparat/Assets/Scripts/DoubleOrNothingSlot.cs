@@ -1,18 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DoubleOrNothingSlot : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public Card DrawnCard;
+    public Image CardImage;
+    private Sprite _defaultSprite;
+
+    private void Awake()
     {
-        
+        _defaultSprite = CardImage.sprite;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnDisable()
     {
-        
+        CardImage.sprite = _defaultSprite;
+    }
+
+    public void PrepareCard(Card _card)
+    {
+        DrawnCard = _card;
+        CardImage.sprite = DrawnCard.CardSprite;
     }
 }

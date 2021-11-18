@@ -18,6 +18,7 @@ public class Card : MonoBehaviour
     public Suit SuitType;
     public int CardValue;
     private CardSlot _parentCardSlot;
+    public Sprite CardSprite;
 
     public CardSlot ParentCardSlot { get => _parentCardSlot; set => _parentCardSlot = value; }
 

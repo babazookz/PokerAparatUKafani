@@ -61,6 +61,8 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -88,3 +90,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CardType: 48
   SuitType: 1
+  CardValue: 0
+  CardSprite: {fileID: 21300000, guid: 3d924a3aa5609b5039d3cd20248da20d, type: 3}

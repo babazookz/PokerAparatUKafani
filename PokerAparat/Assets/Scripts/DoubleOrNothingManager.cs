@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class DoubleOrNothingManager : MonoBehaviour
 {
@@ -9,6 +10,9 @@ public class DoubleOrNothingManager : MonoBehaviour
     private List<GameObject> drawnCards = new List<GameObject>();
     public int StartingCardOffset = 20;
     public int SpaceBetweenCards = 50;
+    private List<Card.CardTypeEnum> allAvailableCards = null;
+    private Card _lastDrawnCard = null;
+    private int _currentPrizeWon = 0;
 
     public static DoubleOrNothingManager Instance
     {
@@ -23,9 +27,12 @@ public class DoubleOrNothingManager : MonoBehaviour
         _instance = this;
     }
 
-    public void PrepareDoubleOrNothingData()
+    public void PrepareDoubleOrNothingData(int currentPrize)
     {
-        
+        if (allAvailableCards == null)
+            allAvailableCards = CardDealer.Instance.CardDictionary.Keys.ToList();
+
+        _currentPrizeWon = currentPrize;
     }
 
     public void DoubleOrNothingFinishAction()
@@ -33,25 +40,62 @@ public class DoubleOrNothingManager : MonoBehaviour
         ClearDrawnCards();
     }
 
-    public void CheckIsItCorrect()
+    private void ShowCard(DoubleOrNothingSlot dns)
     {
+        Card.CardTypeEnum randomAvailableCard = allAvailableCards[Random.Range(0, allAvailableCards.Count)];
 
+        if (CardDealer.Instance.CardDictionary.ContainsKey(randomAvailableCard))
+        {
+            Card card = CardDealer.Instance.CardDictionary[randomAvailableCard];
+            allAvailableCards.Remove(randomAvailableCard);
+            dns.PrepareCard(card);
+            _lastDrawnCard = card;
+        }
+    }
+
+    public bool CheckIsItCorrect()
+    {
+        if(userSelectedLowCard)
+        {
+            return _lastDrawnCard.CardValue < 8;
+        }
+        else
+        {
+            return _lastDrawnCard.CardValue >= 8;
+        }
     }
 
     public void DrawNewCard(bool isLowCard)
     {
+        if (drawnCards.Count == 15)
+        {
+
+        }
+
         userSelectedLowCard = isLowCard;
         CreateNewCardItem();
+        
+        if(CheckIsItCorrect())
+        {
+            Debug.Log("POGODIO SI!");
+            _currentPrizeWon *= 2;
+            UIManager.Instance.UpdateDoubleOrNothingAmount(_currentPrizeWon);
+        }
+        else
+        {
+            Debug.Log("FULAO SI!");
+        }
     }
 
     void CreateNewCardItem()
     {
         GameObject cardPrefab = PoolManager.Instance.PoolOut(PoolManager.Instance.CardItem);
-        drawnCards.Add(cardPrefab);
         cardPrefab.transform.SetParent(UIManager.Instance.DoubleOrNothingPanel, false);
         RectTransform rt = cardPrefab.GetComponent<RectTransform>();
         rt.anchoredPosition = new Vector2(StartingCardOffset + (drawnCards.Count * SpaceBetweenCards), rt.anchoredPosition.y);
-        
+        DoubleOrNothingSlot dns = cardPrefab.GetComponent<DoubleOrNothingSlot>();
+        ShowCard(dns);
+        drawnCards.Add(cardPrefab);
     }
 
     private void ClearDrawnCards()

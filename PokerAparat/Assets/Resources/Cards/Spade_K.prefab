@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8302299739669684000}
   - component: {fileID: 738577963024773568}
   m_Layer: 5
-  m_Name: Card_K_Spade
+  m_Name: Spade_K
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -61,6 +61,8 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -87,3 +89,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CardType: 37
+  SuitType: 0
+  CardValue: 0
+  CardSprite: {fileID: 21300000, guid: f8a6a4a0d53d4b1c88aa5909f0658070, type: 3}

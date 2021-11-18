@@ -58,6 +58,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85d76cf9caa884634ac837b46be2ac72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DrawnCard: {fileID: 0}
+  CardImage: {fileID: 4324188159184944620}
 --- !u!1001 &6705882480352235100
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -183,3 +185,15 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 6705882480352235100}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4324188159184944620 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6994810050455942064, guid: bd1173e1711f08f9b9afa5efa805c1be,
+    type: 3}
+  m_PrefabInstance: {fileID: 6705882480352235100}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -19,6 +19,7 @@ public class UIManager : MonoBehaviour
     public Text WinAmountText;
     public Text HighCardsExplanationText;
     public Button LowCardButton, HighCardButton, HalfButton;
+    private int _currentWinAmount;
 
     public static UIManager Instance
     {
@@ -40,7 +41,7 @@ public class UIManager : MonoBehaviour
         DrawCardsButton.onClick.AddListener(DealCards);
         EventManager.Instance.DealRoundChange.AddListener(OnDealRoundChangeHandler);
         EventManager.Instance.GamblingReady.AddListener(OnGamblingReadyHandler);
-        EventManager.Instance.NewRoundReady.AddListener(OnGamblingReadyHandler);
+        EventManager.Instance.NewRoundReady.AddListener(OnNewRoundReadyHandler);
         EventManager.Instance.WinningCombinationTextUpdate.AddListener(PrepareWinningCombinationText);
 
         LowCardButton.onClick.AddListener(DrawLowCard);
@@ -67,15 +68,17 @@ public class UIManager : MonoBehaviour
         ToggleDoubleOrNothingScreen(true);
         ToggleGamblingButton(false);
         ToggleHighCardsExplanation(true);
+        DoubleOrNothingManager.Instance.PrepareDoubleOrNothingData(_currentWinAmount);
     }
 
-    private void OnGamblingReadyHandler()
+    private void OnGamblingReadyHandler(int currentPrizeAmount)
     {
         // show gambling button and top info panel
         ToggleGoalsTopPanel(false);
         ToggleWinningCombinationTopPanel(true);
         ToggleDrawCardsButton(false);
         ToggleGamblingButton(true);
+        _currentWinAmount = currentPrizeAmount;
     }
 
     private void ToggleGamblingButton(bool active)
