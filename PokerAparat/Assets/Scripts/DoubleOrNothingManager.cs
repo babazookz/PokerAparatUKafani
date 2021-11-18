@@ -55,6 +55,9 @@ public class DoubleOrNothingManager : MonoBehaviour
 
     public bool CheckIsItCorrect()
     {
+        if (_lastDrawnCard.SuitType == Card.Suit.Joker)
+            return true;
+
         if(userSelectedLowCard)
         {
             return _lastDrawnCard.CardValue < 8;
@@ -69,7 +72,7 @@ public class DoubleOrNothingManager : MonoBehaviour
     {
         if (drawnCards.Count == 15)
         {
-
+            ClearDrawnCards();
         }
 
         userSelectedLowCard = isLowCard;
@@ -77,14 +80,22 @@ public class DoubleOrNothingManager : MonoBehaviour
         
         if(CheckIsItCorrect())
         {
-            Debug.Log("POGODIO SI!");
             _currentPrizeWon *= 2;
             UIManager.Instance.UpdateDoubleOrNothingAmount(_currentPrizeWon);
         }
         else
         {
-            Debug.Log("FULAO SI!");
+            _currentPrizeWon *= 0;
+            UIManager.Instance.UpdateDoubleOrNothingAmount(_currentPrizeWon);
+            EventManager.Instance.GamblingOver.Invoke();
         }
+    }
+
+    public int HalfThePrize()
+    {
+        _currentPrizeWon /= 2;
+        PlayerAccount.Instance.AddCredits(_currentPrizeWon);
+        return _currentPrizeWon;
     }
 
     void CreateNewCardItem()

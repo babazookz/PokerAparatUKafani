@@ -39,10 +39,10 @@ public class UIManager : MonoBehaviour
         OnNewRoundReadyHandler();
         GambleButton.onClick.AddListener(PrepareGambleScreen);
         DrawCardsButton.onClick.AddListener(DealCards);
-        EventManager.Instance.DealRoundChange.AddListener(OnDealRoundChangeHandler);
         EventManager.Instance.GamblingReady.AddListener(OnGamblingReadyHandler);
         EventManager.Instance.NewRoundReady.AddListener(OnNewRoundReadyHandler);
         EventManager.Instance.WinningCombinationTextUpdate.AddListener(PrepareWinningCombinationText);
+        EventManager.Instance.GamblingOver.AddListener(OnGamblingOverHandler);
 
         LowCardButton.onClick.AddListener(DrawLowCard);
         HighCardButton.onClick.AddListener(DrawHighCard);
@@ -51,15 +51,10 @@ public class UIManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        EventManager.Instance.DealRoundChange.RemoveListener(OnDealRoundChangeHandler);
         EventManager.Instance.GamblingReady.RemoveListener(OnGamblingReadyHandler);
         EventManager.Instance.NewRoundReady.RemoveListener(OnNewRoundReadyHandler);
         EventManager.Instance.WinningCombinationTextUpdate.RemoveListener(PrepareWinningCombinationText);
-    }
-
-    private void OnDealRoundChangeHandler(CardDealer.DealRoundEnum newRound)
-    {
-        
+        EventManager.Instance.GamblingOver.RemoveListener(OnGamblingOverHandler);
     }
 
     private void PrepareGambleScreen()
@@ -79,11 +74,18 @@ public class UIManager : MonoBehaviour
         ToggleDrawCardsButton(false);
         ToggleGamblingButton(true);
         _currentWinAmount = currentPrizeAmount;
+        CardDealer.Instance.DealRound = CardDealer.DealRoundEnum.Zero;
     }
 
     private void ToggleGamblingButton(bool active)
     {
         GambleButton.gameObject.SetActive(active);
+    }
+
+    private void OnGamblingOverHandler()
+    {
+        DoubleOrNothingButtonPanel.gameObject.SetActive(false);
+        ToggleDrawCardsButton(true);
     }
 
     private void OnNewRoundReadyHandler()
@@ -125,6 +127,8 @@ public class UIManager : MonoBehaviour
 
     public void DealCards()
     {
+        // nazvati i promijeniti malo ovu ispod metodu
+        DoubleOrNothingManager.Instance.DoubleOrNothingFinishAction();
         CardSlotManager.Instance.DealCards();
     }
 
@@ -136,6 +140,7 @@ public class UIManager : MonoBehaviour
 
     public void UpdateDoubleOrNothingAmount(int winAmount)
     {
+        _currentWinAmount = winAmount;
         WinAmountText.text = winAmount.ToString();
     }
 
@@ -156,6 +161,8 @@ public class UIManager : MonoBehaviour
 
     void HalfThePrizeAction()
     {
-
+        int newAmount = DoubleOrNothingManager.Instance.HalfThePrize();
+        _currentWinAmount = newAmount;
+        UpdateDoubleOrNothingAmount(_currentWinAmount);
     }
 }

@@ -39,6 +39,7 @@ public class CardSlotManager : MonoBehaviour
     {
         if (CardDealer.Instance.DealRound == CardDealer.DealRoundEnum.Zero)
         {
+            EventManager.Instance.NewRoundReady.Invoke();
             CardDealer.Instance.DealRound = CardDealer.DealRoundEnum.First;
         }
         else if (CardDealer.Instance.DealRound == CardDealer.DealRoundEnum.First)
@@ -72,6 +73,7 @@ public class CardSlotManager : MonoBehaviour
     {
         GoalsManager.Instance.ShowWinCombinationBorder(GoalsManager.DefaultPrizes.Nothing);
         HashSet<Card.CardTypeEnum> _cardsNoLongerAvailable = ClearUnlockedCards();
+        EventManager.Instance.DealRoundChange.Invoke(CardDealer.Instance.DealRound);
         yield return StartCoroutine(DrawCards(_cardsNoLongerAvailable));
 
         List<Card> allCards = new List<Card>();
@@ -83,7 +85,6 @@ public class CardSlotManager : MonoBehaviour
             }
         }
 
-        EventManager.Instance.DealRoundChange.Invoke(CardDealer.Instance.DealRound);
         EventManager.Instance.EvaluateHand.Invoke(allCards, CardDealer.Instance.DealRound);
     }
 

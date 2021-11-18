@@ -9,6 +9,7 @@ public class EventManager : MonoBehaviour
     public CustomEvent<List<Card>, CardDealer.DealRoundEnum> EvaluateHand = new CustomEvent<List<Card>, CardDealer.DealRoundEnum>();
     public CustomEvent<int> GamblingReady = new CustomEvent<int>();
     public CustomEvent NewRoundReady = new CustomEvent();
+    public CustomEvent GamblingOver = new CustomEvent();
     public CustomEvent<string, int> WinningCombinationTextUpdate = new CustomEvent<string, int>();
 
     public static EventManager Instance
