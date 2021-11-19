@@ -142,8 +142,9 @@ public class HandEvaluator : MonoBehaviour
 
         if(currentRound == CardDealer.DealRoundEnum.Second && prizeAmount > 0)
         {
-            EventManager.Instance.GamblingReady.Invoke(prizeAmount);
-            EventManager.Instance.WinningCombinationTextUpdate.Invoke(winningCombination, prizeAmount);
+            int totalPrize = prizeAmount * BetManager.Instance.MyCurrentBet;
+            EventManager.Instance.GamblingReady.Invoke(totalPrize);
+            EventManager.Instance.WinningCombinationTextUpdate.Invoke(winningCombination, totalPrize);
         }
     }
 

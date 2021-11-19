@@ -68,8 +68,14 @@ public class CardSlot : MonoBehaviour, IPointerClickHandler
         if (!IsLocked)
         {
             IsLocked = true;
-            HoldText.gameObject.SetActive(IsLocked);
+            if (CardDealer.Instance.DealRound == CardDealer.DealRoundEnum.First)
+                ToggleHoldText(IsLocked);
             BackgroundWhenLocked.enabled = IsLocked;
         }
+    }
+
+    public void ToggleHoldText(bool active)
+    {
+        HoldText.gameObject.SetActive(active);
     }
 }

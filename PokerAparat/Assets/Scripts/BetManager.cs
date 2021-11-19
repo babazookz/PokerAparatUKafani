@@ -61,4 +61,14 @@ public class BetManager : MonoBehaviour
         BetText.text = MyCurrentBet.ToString("# ###");
         PlayerPrefs.SetInt("CurrentBet", MyCurrentBet);
     }
+
+    public void IncreaseBet(int amount)
+    {
+        MyCurrentBet += amount;
+    }
+
+    public void DecreaseBet(int amount)
+    {
+        MyCurrentBet -= amount;
+    }
 }
