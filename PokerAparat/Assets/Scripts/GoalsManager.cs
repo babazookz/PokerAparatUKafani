@@ -6,7 +6,7 @@ using DG.Tweening;
 
 public class GoalsManager : MonoBehaviour
 {
-    public enum DefaultPrizes { Nothing = 0, HighPair = 1, DoublePair = 2, ThreeOfKind = 3, Straight = 5, Flush = 7, FullHouse = 10, Poker = 40, StraightFlush = 100, RoyalFlush = 500, FiveOfKind = 1100 }
+    public enum DefaultPrizes { Nothing = 0, HighPair = 1, DoublePair = 2, ThreeOfKind = 3, Straight = 5, Flush = 7, FullHouse = 10, Poker = 30, StraightFlush = 60, RoyalFlush = 150, FiveOfKind = 750 }
     public enum WinCombination { FIVE_OF_A_KIND, POKER, ROYAL_FLUSH, STRAIGHT_FLUSH, THREE_OF_A_KIND, HIGH_PAIR, FULL_HOUSE, FLUSH, DOUBLE_PAIR, STRAIGHT }
     private static GoalsManager _instance;
 

@@ -52,7 +52,10 @@ public class CardSlot : MonoBehaviour, IPointerClickHandler
         IsLocked = !IsLocked;
         HoldText.gameObject.SetActive(IsLocked);
         BackgroundWhenLocked.enabled = IsLocked;
+        AudioManager.Instance.PlayMainAudioSourceClip(AudioManager.Instance.ButtonClick);
     }
+
+    #endregion
 
     public void ResetSlot()
     {
@@ -60,8 +63,6 @@ public class CardSlot : MonoBehaviour, IPointerClickHandler
         HoldText.gameObject.SetActive(IsLocked);
         BackgroundWhenLocked.enabled = IsLocked;
     }
-
-    #endregion
 
     public void LockCard()
     {

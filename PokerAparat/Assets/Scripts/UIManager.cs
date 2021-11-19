@@ -25,6 +25,9 @@ public class UIManager : MonoBehaviour
     private bool _betDecreaseButtonHolding = false;
     private float _betButtonHoldingTimeCurrentSequence = 0;
     private float _totalBetButtonHoldingTime = 0;
+    public Button HighscoreButton;
+    public Button FacebookButton;
+    public Toggle SoundToggle;
 
     public static UIManager Instance
     {
@@ -54,6 +57,8 @@ public class UIManager : MonoBehaviour
         LowCardButton.onClick.AddListener(DrawLowCard);
         HighCardButton.onClick.AddListener(DrawHighCard);
         HalfButton.onClick.AddListener(HalfThePrizeAction);
+        SoundToggle.isOn = PrefsManager.Sound;
+        SoundToggle.onValueChanged.AddListener(OnSoundToggle);
     }
 
     private void OnDestroy()
@@ -101,8 +106,24 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    private void OnSoundToggle(bool value)
+    {
+        PrefsManager.Sound = value;
+    }
+
+    private void OnFacebookButtonClick()
+    {
+
+    }
+
+    private void OnHighscoreButtonClick()
+    {
+
+    }
+
     private void PrepareGambleScreen()
     {
+        AudioManager.Instance.PlayMainAudioSourceClip(AudioManager.Instance.ButtonClick);
         ToggleMainSlotScreen(false);
         ToggleDoubleOrNothingScreen(true);
         ToggleGamblingButton(false);
@@ -175,6 +196,7 @@ public class UIManager : MonoBehaviour
 
     public void DealCards()
     {
+        AudioManager.Instance.PlayMainAudioSourceClip(AudioManager.Instance.ButtonClick);
         // nazvati i promijeniti malo ovu ispod metodu
         DoubleOrNothingManager.Instance.DoubleOrNothingFinishAction();
         CardSlotManager.Instance.DealCards();
@@ -200,11 +222,13 @@ public class UIManager : MonoBehaviour
     void DrawLowCard()
     {
         DoubleOrNothingManager.Instance.DrawNewCard(true);
+        AudioManager.Instance.PlayMainAudioSourceClip(AudioManager.Instance.ButtonClick);
     }
 
     void DrawHighCard()
     {
         DoubleOrNothingManager.Instance.DrawNewCard(false);
+        AudioManager.Instance.PlayMainAudioSourceClip(AudioManager.Instance.ButtonClick);
     }
 
     void HalfThePrizeAction()

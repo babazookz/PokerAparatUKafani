@@ -191,8 +191,9 @@ public class CardSlotManager : MonoBehaviour
                 // maybe animation of rotating the card?
                 cse.CardBack.gameObject.SetActive(false);
                 card.ParentCardSlot = cse;
+                AudioManager.Instance.PlayMainAudioSourceClip(AudioManager.Instance.CardFlip);
             }
-            yield return new WaitForSeconds(0.075f);
+            yield return new WaitForSeconds(0.2f);
         }
     }
 }

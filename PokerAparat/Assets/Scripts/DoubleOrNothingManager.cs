@@ -50,6 +50,7 @@ public class DoubleOrNothingManager : MonoBehaviour
             allAvailableCards.Remove(randomAvailableCard);
             dns.PrepareCard(card);
             _lastDrawnCard = card;
+            AudioManager.Instance.PlayMainAudioSourceClip(AudioManager.Instance.CardFlip);
         }
     }
 
