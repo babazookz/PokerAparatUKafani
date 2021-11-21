@@ -96,7 +96,8 @@ public class FirebaseCustomInitialization : MonoBehaviour
 
 	public void DeleteHighscoreRecord(string username)
     {
-		reference.Database.GetReference("highscores").Child(username).SetValueAsync(null);
+		string path = "highscores/" + username;
+		reference.Database.GetReference(path).SetValueAsync(null);
 	}
 
 	public void WriteNewScore(string userId, int score)

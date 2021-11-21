@@ -127,19 +127,13 @@ public class UIManager : MonoBehaviour
 
     private void OnUsernameEndEdit(string value)
     {
+        FirebaseCustomInitialization.Instance.DeleteHighscoreRecord(PrefsManager.OldUsername);
         PrefsManager.OldUsername = PrefsManager.Username;
         PrefsManager.Username = value;
         PlayerUsernameText.gameObject.SetActive(true);
         PlayerUsernameInput.gameObject.SetActive(false);
-
         PlayerUsernameText.text = value;
-
-        FirebaseCustomInitialization.Instance.DeleteHighscoreRecord(PrefsManager.OldUsername);
         FirebaseCustomInitialization.Instance.WriteNewScore(PrefsManager.Username, PrefsManager.PersonalHighscore);
-
-        // update firebase highscore with new username
-
-        // delete record with old username record
     }
 
     private void OnSoundToggle(bool value)
