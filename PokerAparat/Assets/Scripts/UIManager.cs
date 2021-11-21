@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class UIManager : MonoBehaviour
 {
@@ -28,6 +29,8 @@ public class UIManager : MonoBehaviour
     public Button HighscoreButton;
     public Button FacebookButton;
     public Toggle SoundToggle;
+    public Text PlayerUsernameText;
+    public InputField PlayerUsernameInput;
 
     public static UIManager Instance
     {
@@ -44,6 +47,7 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
+        PlayerUsernameText.text = PrefsManager.Username;
         OnNewRoundReadyHandler();
         GambleButton.onClick.AddListener(PrepareGambleScreen);
         DrawCardsButton.onClick.AddListener(DealCards);
@@ -59,6 +63,9 @@ public class UIManager : MonoBehaviour
         HalfButton.onClick.AddListener(HalfThePrizeAction);
         SoundToggle.isOn = PrefsManager.Sound;
         SoundToggle.onValueChanged.AddListener(OnSoundToggle);
+
+        PlayerUsernameInput.gameObject.SetActive(false);
+        PlayerUsernameInput.onEndEdit.AddListener(OnUsernameEndEdit);
     }
 
     private void OnDestroy()
@@ -71,6 +78,11 @@ public class UIManager : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+
         if (_betIncreaseButtonHolding || _betDecreaseButtonHolding)
         {
             _betButtonHoldingTimeCurrentSequence += Time.deltaTime;
@@ -104,6 +116,30 @@ public class UIManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void EditPlayerUsername()
+    {
+        PlayerUsernameInput.text = PrefsManager.Username;
+        PlayerUsernameText.gameObject.SetActive(false);
+        PlayerUsernameInput.gameObject.SetActive(true);
+    }
+
+    private void OnUsernameEndEdit(string value)
+    {
+        PrefsManager.OldUsername = PrefsManager.Username;
+        PrefsManager.Username = value;
+        PlayerUsernameText.gameObject.SetActive(true);
+        PlayerUsernameInput.gameObject.SetActive(false);
+
+        PlayerUsernameText.text = value;
+
+        FirebaseCustomInitialization.Instance.DeleteHighscoreRecord(PrefsManager.OldUsername);
+        FirebaseCustomInitialization.Instance.WriteNewScore(PrefsManager.Username, PrefsManager.PersonalHighscore);
+
+        // update firebase highscore with new username
+
+        // delete record with old username record
     }
 
     private void OnSoundToggle(bool value)

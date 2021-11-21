@@ -21,7 +21,7 @@ public class PlayerAccount : MonoBehaviour
     private void Awake()
     {
         _instance = this;
-        PlayerBalance = PlayerPrefs.GetInt("PlayerBalance", 1000000);
+        PlayerBalance = PrefsManager.PlayerBalance;
         PlayerBalanceText.text = PlayerBalance.ToString("# ### ### ### ###");
     }
 
@@ -40,7 +40,13 @@ public class PlayerAccount : MonoBehaviour
     public void AddCredits(int credits)
     {
         PlayerBalance += credits;
-        PlayerPrefs.SetInt("PlayerBalance", PlayerBalance);
+        PrefsManager.PlayerBalance = PlayerBalance;
         PlayerBalanceText.text = PlayerBalance.ToString("# ### ### ### ###");
+
+        if (PrefsManager.PlayerBalance > PrefsManager.PersonalHighscore)
+        {
+            FirebaseCustomInitialization.Instance.WriteNewScore(PrefsManager.Username, PrefsManager.PlayerBalance);
+            PrefsManager.PersonalHighscore = PrefsManager.PlayerBalance;
+        }
     }
 }

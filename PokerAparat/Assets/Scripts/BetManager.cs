@@ -55,7 +55,6 @@ public class BetManager : MonoBehaviour
 
     private void MyCurrentBetVariableChangeHandler(int newVal)
     {
-        Debug.Log("MyCurrentBet is now - " + MyCurrentBet.ToString());
         GoalsManager.Instance.RecalculatePrizes(MyCurrentBet);
 
         BetText.text = MyCurrentBet.ToString("# ###");
