@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class PrefsManager : MonoBehaviour
@@ -44,7 +43,7 @@ public class PrefsManager : MonoBehaviour
     {
         get
         {
-            return PlayerPrefs.GetString("Username", "GOST" + UnityEngine.Random.Range(0, 1000000).ToString());
+            return PlayerPrefs.GetString("Username", "GOST");
         }
         set
         {
@@ -61,6 +60,18 @@ public class PrefsManager : MonoBehaviour
         set
         {
             PlayerPrefs.SetString("Username", value);
+        }
+    }
+
+    public static string LastFreeCreditDatetime
+    {
+        get
+        {
+            return PlayerPrefs.GetString("LastFreeCreditDatetime", DateTime.UtcNow.AddTicks(-40000000000).Ticks.ToString());
+        }
+        set
+        {
+            PlayerPrefs.SetString("LastFreeCreditDatetime", value);
         }
     }
 }

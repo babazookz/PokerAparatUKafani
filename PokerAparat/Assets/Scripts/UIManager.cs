@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Linq;
+using System;
 
 public class UIManager : MonoBehaviour
 {
@@ -26,8 +26,6 @@ public class UIManager : MonoBehaviour
     private bool _betDecreaseButtonHolding = false;
     private float _betButtonHoldingTimeCurrentSequence = 0;
     private float _totalBetButtonHoldingTime = 0;
-    public Button HighscoreButton;
-    public Button FacebookButton;
     public Toggle SoundToggle;
     public Text PlayerUsernameText;
     public InputField PlayerUsernameInput;
@@ -35,6 +33,8 @@ public class UIManager : MonoBehaviour
     public Transform LeaderboardScrollContent;
     public Button LeaderboardButton;
     private List<GameObject> _leaderboardItems = new List<GameObject>();
+    public Button FreeCreditsButton;
+    public const long TicksPerHour = 36000000000;
 
     public static UIManager Instance
     {
@@ -51,6 +51,9 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
+        if (PrefsManager.Username == "GOST")
+            PrefsManager.Username = "GOST" + UnityEngine.Random.Range(0, 1000000).ToString();
+
         PlayerUsernameText.text = PrefsManager.Username;
         OnNewRoundReadyHandler();
         GambleButton.onClick.AddListener(PrepareGambleScreen);
@@ -71,6 +74,7 @@ public class UIManager : MonoBehaviour
         PlayerUsernameInput.gameObject.SetActive(false);
         PlayerUsernameInput.onEndEdit.AddListener(OnUsernameEndEdit);
         LeaderboardButton.onClick.AddListener(OnShowLeaderboardClick);
+        FreeCreditsButton.onClick.AddListener(UnityInterstitialAd.Instance.ShowAd);
     }
 
     private void OnDestroy()
@@ -121,17 +125,41 @@ public class UIManager : MonoBehaviour
                 }
             }
         }
+
+        if (long.Parse(PrefsManager.LastFreeCreditDatetime) + TicksPerHour < DateTime.UtcNow.Ticks)
+        {
+            if(!FreeCreditsButton.gameObject.activeSelf)
+                FreeCreditsButton.gameObject.SetActive(true);
+        }
+        else
+        {
+            if (FreeCreditsButton.gameObject.activeSelf)
+                FreeCreditsButton.gameObject.SetActive(false);
+        }
     }
 
     private void OnShowLeaderboardClick()
     {
         LeaderboardPanel.gameObject.SetActive(true);
-
+        if (FirebaseCustomInitialization.Instance.LeaderboardEntriesOrdered != null)
+        {
+            int counter = 1;
+            foreach(LeaderboardEntry leItem in FirebaseCustomInitialization.Instance.LeaderboardEntriesOrdered)
+            {
+                GameObject leaderboardGO = PoolManager.Instance.PoolOut(PoolManager.Instance.LeaderboardItem);
+                leaderboardGO.transform.SetParent(LeaderboardScrollContent, false);
+                LeaderboardItem li = leaderboardGO.GetComponent<LeaderboardItem>();
+                li.PrepareItem(leItem, counter);
+                counter++;
+                _leaderboardItems.Add(leaderboardGO);
+            }
+        }
     }
 
-    private void HideLeaderboard()
+    public void HideLeaderboard()
     {
-
+        ClearLeaderboardItems();
+        LeaderboardPanel.gameObject.SetActive(false);
     }
 
     private void ClearLeaderboardItems()
@@ -245,7 +273,7 @@ public class UIManager : MonoBehaviour
         GoalsTopPanel.gameObject.SetActive(active);
     }
 
-    void ToggleDrawCardsButton(bool active)
+    public void ToggleDrawCardsButton(bool active)
     {
         DrawCardsButton.gameObject.SetActive(active);
     }

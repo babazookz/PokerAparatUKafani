@@ -144,6 +144,7 @@ public class CardSlotManager : MonoBehaviour
 
     IEnumerator DrawCards(HashSet<Card.CardTypeEnum> _cardsNoLongerAvailable)
     {
+        UIManager.Instance.ToggleDrawCardsButton(false);
         if (_cardSlots == null || _cardSlots.Count == 0)
         {
             yield return null;
@@ -172,6 +173,8 @@ public class CardSlotManager : MonoBehaviour
         }
 
         yield return StartCoroutine(ShowCards(allAvailableCards, emptySlots));
+
+        UIManager.Instance.ToggleDrawCardsButton(true);
     }
 
     private IEnumerator ShowCards(List<Card.CardTypeEnum> allAvailableCards, List<CardSlot> emptySlots)

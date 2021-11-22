@@ -246,6 +246,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3238381190330829675}
+  - component: {fileID: 8008388385805783968}
   m_Layer: 5
   m_Name: LeaderboardEntry
   m_TagString: Untagged
@@ -275,3 +276,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &8008388385805783968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3238381190330829676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc13474fd4b344756bc04eac4309c29c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PositionText: {fileID: 3238381189548019043}
+  PlayerUsername: {fileID: 3238381188595371913}
+  Score: {fileID: 3238381189823569097}
