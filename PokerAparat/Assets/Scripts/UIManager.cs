@@ -31,6 +31,10 @@ public class UIManager : MonoBehaviour
     public Toggle SoundToggle;
     public Text PlayerUsernameText;
     public InputField PlayerUsernameInput;
+    public Transform LeaderboardPanel;
+    public Transform LeaderboardScrollContent;
+    public Button LeaderboardButton;
+    private List<GameObject> _leaderboardItems = new List<GameObject>();
 
     public static UIManager Instance
     {
@@ -66,6 +70,7 @@ public class UIManager : MonoBehaviour
 
         PlayerUsernameInput.gameObject.SetActive(false);
         PlayerUsernameInput.onEndEdit.AddListener(OnUsernameEndEdit);
+        LeaderboardButton.onClick.AddListener(OnShowLeaderboardClick);
     }
 
     private void OnDestroy()
@@ -116,6 +121,27 @@ public class UIManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void OnShowLeaderboardClick()
+    {
+        LeaderboardPanel.gameObject.SetActive(true);
+
+    }
+
+    private void HideLeaderboard()
+    {
+
+    }
+
+    private void ClearLeaderboardItems()
+    {
+        foreach (GameObject rowGO in _leaderboardItems)
+        {
+            rowGO.transform.SetParent(null, false);
+            PoolManager.Instance.PoolIn(rowGO);
+        }
+        _leaderboardItems.Clear();
     }
 
     public void EditPlayerUsername()

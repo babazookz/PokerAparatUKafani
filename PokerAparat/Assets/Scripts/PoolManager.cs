@@ -9,6 +9,7 @@ public class PoolManager : MonoBehaviour
 	private static PoolManager _instance;
 	[Header("Prefabs")]
 	public GameObject CardItem;
+	public GameObject LeaderboardItem;
 	private Transform _transform;
 	private Dictionary<string, Pool> _pools = new Dictionary<string, Pool>();
 	private Dictionary<GameObject, PoolObject> _poolObjects = new Dictionary<GameObject, PoolObject>();
@@ -52,6 +53,7 @@ public class PoolManager : MonoBehaviour
 		_instance = this;
 
 		CreatePool(CardItem, 5, null, _transform);
+		CreatePool(LeaderboardItem, 50, null, _transform);
 	}
 
 	public void CreatePool(GameObject prefab, int poolSize, Type type = null, Transform poolHolder = null)
