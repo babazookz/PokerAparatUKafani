@@ -57,7 +57,7 @@ public class BetManager : MonoBehaviour
     {
         GoalsManager.Instance.RecalculatePrizes(MyCurrentBet);
 
-        BetText.text = MyCurrentBet.ToString("# ###");
+        BetText.text = MyCurrentBet.ToString();
         PlayerPrefs.SetInt("CurrentBet", MyCurrentBet);
     }
 

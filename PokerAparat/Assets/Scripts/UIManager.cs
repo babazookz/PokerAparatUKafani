@@ -27,6 +27,7 @@ public class UIManager : MonoBehaviour
     private float _betButtonHoldingTimeCurrentSequence = 0;
     private float _totalBetButtonHoldingTime = 0;
     public Toggle SoundToggle;
+    public Image SoundMainImage;
     public Text PlayerUsernameText;
     public InputField PlayerUsernameInput;
     public Transform LeaderboardPanel;
@@ -193,6 +194,11 @@ public class UIManager : MonoBehaviour
     private void OnSoundToggle(bool value)
     {
         PrefsManager.Sound = value;
+
+        if (PrefsManager.Sound)
+            SoundMainImage.sprite = AudioManager.Instance.AudioOn;
+        else
+            SoundMainImage.sprite = AudioManager.Instance.AudioOff;
     }
 
     private void OnFacebookButtonClick()
@@ -280,7 +286,7 @@ public class UIManager : MonoBehaviour
 
     public void DealCards()
     {
-        AudioManager.Instance.PlayMainAudioSourceClip(AudioManager.Instance.ButtonClick);
+        //AudioManager.Instance.PlayMainAudioSourceClip(AudioManager.Instance.ButtonClick);
         // nazvati i promijeniti malo ovu ispod metodu
         DoubleOrNothingManager.Instance.DoubleOrNothingFinishAction();
         CardSlotManager.Instance.DealCards();

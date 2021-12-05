@@ -22,7 +22,7 @@ public class PlayerAccount : MonoBehaviour
     {
         _instance = this;
         PlayerBalance = PrefsManager.PlayerBalance;
-        PlayerBalanceText.text = PlayerBalance.ToString("# ### ### ### ###");
+        PlayerBalanceText.text = PlayerBalance.ToString();
     }
 
     // Start is called before the first frame update
@@ -41,7 +41,7 @@ public class PlayerAccount : MonoBehaviour
     {
         PlayerBalance += credits;
         PrefsManager.PlayerBalance = PlayerBalance;
-        PlayerBalanceText.text = PlayerBalance.ToString("# ### ### ### ###");
+        PlayerBalanceText.text = PlayerBalance.ToString();
 
         if (PrefsManager.PlayerBalance > PrefsManager.PersonalHighscore)
         {

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AudioManager : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class AudioManager : MonoBehaviour
     public AudioSource MainAudioSource;
     public AudioClip ButtonClick;
     public AudioClip CardFlip;
+    public Sprite AudioOn, AudioOff;
 
     public static AudioManager Instance
     {
