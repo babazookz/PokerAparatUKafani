@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d0afd481dce5742a38465c8e7f955b5e
+guid: c3922134c954a234697f3e32f28e2533
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - ArcadeClassic
+  - Century
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
