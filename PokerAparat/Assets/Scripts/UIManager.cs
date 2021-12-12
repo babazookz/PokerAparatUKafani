@@ -230,8 +230,7 @@ public class UIManager : MonoBehaviour
         ToggleGamblingButton(true);
         _currentWinAmount = currentPrizeAmount;
         CardDealer.Instance.DealRound = CardDealer.DealRoundEnum.Zero;
-        IncreaseBetButton.gameObject.SetActive(false);
-        DecreaseBetButton.gameObject.SetActive(false);
+        ToggleBetButtons(false);
     }
 
     private void ToggleGamblingButton(bool active)
@@ -243,8 +242,7 @@ public class UIManager : MonoBehaviour
     {
         DoubleOrNothingButtonPanel.gameObject.SetActive(false);
         ToggleDrawCardsButton(true);
-        IncreaseBetButton.gameObject.SetActive(true);
-        DecreaseBetButton.gameObject.SetActive(true);
+        ToggleBetButtons(true);
     }
 
     private void OnNewRoundReadyHandler()
@@ -256,6 +254,12 @@ public class UIManager : MonoBehaviour
         ToggleGamblingButton(false);
         ToggleDrawCardsButton(true);
         ToggleHighCardsExplanation(false);
+    }
+
+    public void ToggleBetButtons(bool isActive)
+    {
+        IncreaseBetButton.gameObject.SetActive(isActive);
+        DecreaseBetButton.gameObject.SetActive(isActive);
     }
 
     public void ToggleDoubleOrNothingScreen(bool active)
@@ -288,6 +292,7 @@ public class UIManager : MonoBehaviour
     {
         //AudioManager.Instance.PlayMainAudioSourceClip(AudioManager.Instance.ButtonClick);
         // nazvati i promijeniti malo ovu ispod metodu
+        ToggleBetButtons(false);
         DoubleOrNothingManager.Instance.DoubleOrNothingFinishAction();
         CardSlotManager.Instance.DealCards();
     }

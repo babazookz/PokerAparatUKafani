@@ -17,9 +17,10 @@ public class UnityBannerAd : MonoBehaviour
 
     private void Awake()
     {
-        _showBannerButton.gameObject.SetActive(Application.platform == RuntimePlatform.OSXEditor || Application.platform == RuntimePlatform.WindowsEditor);
-        _hideBannerButton.gameObject.SetActive(Application.platform == RuntimePlatform.OSXEditor || Application.platform == RuntimePlatform.WindowsEditor);
-        _loadBannerButton.gameObject.SetActive(Application.platform == RuntimePlatform.OSXEditor || Application.platform == RuntimePlatform.WindowsEditor);
+
+        _showBannerButton.gameObject.SetActive(false);
+        _hideBannerButton.gameObject.SetActive(false);
+        _loadBannerButton.gameObject.SetActive(false);
     }
 
     void Start()

@@ -55,6 +55,10 @@ public class CardSlotManager : MonoBehaviour
         {
             PlayerAccount.Instance.AddCredits(-BetManager.Instance.MyCurrentBet);
         }
+        else if (CardDealer.Instance.DealRound == CardDealer.DealRoundEnum.Second)
+        {
+            UIManager.Instance.ToggleBetButtons(true);
+        }
     }
 
     
