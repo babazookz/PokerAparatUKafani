@@ -8108,7 +8108,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _androidGameId: 4443941
   _iOsGameId: 4443940
-  _testMode: 1
+  _testMode: 0
   _enablePerPlacementMode: 1
 --- !u!1 &1498297649
 GameObject:
