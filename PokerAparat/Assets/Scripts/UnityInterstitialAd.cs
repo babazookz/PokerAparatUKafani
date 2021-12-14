@@ -50,7 +50,10 @@ public class UnityInterstitialAd : MonoBehaviour, IUnityAdsLoadListener, IUnityA
     // Implement a method to execute when the user clicks the button.
     public void ShowAd()
     {
-        if(Advertisement.IsReady())
+        Debug.Log("Advertisement.IsReady() - " + Advertisement.isInitialized + " - " + _adUnitId);
+
+
+        if (Advertisement.isInitialized)
             Advertisement.Show(_adUnitId, this);
     }
 
