@@ -111,11 +111,14 @@ public class CardDealer : MonoBehaviour
 
         foreach (Object go in cardResources)
         {
-            GameObject _go = GameObject.Instantiate((GameObject)go, _transform) as GameObject;
-            _go.SetActive(false);
-            _go.name = go.name;
+            if(go.name != "Card_Back")
+            {
+                GameObject _go = GameObject.Instantiate((GameObject)go, _transform) as GameObject;
+                _go.SetActive(false);
+                _go.name = go.name;
 
-            cardGameObjectResources.Add(_go);
+                cardGameObjectResources.Add(_go);
+            }
         }
     }
 
